@@ -1,10 +1,11 @@
-#########################################
-##Created by Jibril Turner on 1/12/2023##
-##Tommorw is the day i ask out a girl  ##
-#########################################
-userName = input("Enter Username")
-passWord = input("Enter Username")
+###################################
+##Created by jibril on 1/12/2023 ##
+##You Fucking Muppet             ##
+###################################
 
-print("username is:" + userName)
-print("username is:" + userName)
+username = input("Enter username:")
+print("Username is: " + username)
+
+password = input("Enter Password:")
+print("Password is:" + password )
 

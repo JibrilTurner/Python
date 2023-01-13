@@ -8,20 +8,20 @@
 # my-var = "John"
 # my var = "John"
 
-a = 5;
+a = 5; 
 print(a);
 
 b = 4.211;
 print(b);
 
-c = "String" # "" AND '' are interchangble
+c = "String" # "" AND '' are interchangble 
 print(c)
 
 d = "c"
 print(d)
 
-e = 4
-e = "Sally"
+e = 4       
+e = "Sally" 
 print(e)
 
 x = str(3)    # x will be '3'

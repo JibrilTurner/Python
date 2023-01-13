@@ -1,17 +1,25 @@
-#########################################
-##Created by Jibril Turner on 1/12/2023##
-##Tommorw is the day i ask out a girl  ##
-#########################################
+###################################
+##Created by jibril on 1/12/2023 ##
+##You Fucking Muppet             ##
+###################################
 
-a = float(input("Enter Number One: "))
-b = float(input("Enter Number Two: "))
-opp = int(input ("Enter Opp"))
+a = input("Enter Number one:")
+b = input("Enter Number two:")
+opp = input ("Enter Opp")
 
 if opp == 1:
-    print(a  + b)
+  c = int(a)+ int(b)
+  print(c)
+  
 elif opp == 2:
-    print (a-b)
+  c = int(a) - int(b)
+  print(c)
+
 elif opp == 3:
-    print (a*b)
+  c = int(a) * int(b)
+  print(c)
+
 else:
-    print(a/b)
+  c = int(a) / int(b)
+  print(c)
+
