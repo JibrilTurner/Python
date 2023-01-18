@@ -14,3 +14,11 @@ print("Your name is " + p2.name)
 print("Your class is " + p2.classs)
 print("your level is %f" % (p2.level))
 print("your attack is %d" % (p2.attack))
+print("")
+
+p1 = PlayerStats("jamie","looser",18,-5)
+
+print("Your name is " + p1.name)
+print("Your class is " + p1.classs)
+print("your level is %f" % (p1.level))
+print("your attack is %d" % (p1.attack))
