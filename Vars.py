@@ -8,11 +8,11 @@
 # my-var = "John"
 # my var = "John"
 
-a = 5; 
-print(a);
+a = 5
+print(a)
 
-b = 4.211;
-print(b);
+b = 4.21
+print(b)
 
 c = "String" # "" AND '' are interchangble 
 print(c)
