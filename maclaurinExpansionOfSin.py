@@ -10,7 +10,7 @@ def sigmaNotation(start,end,inc,x):
 def test1():
 
      test = [sigmaNotation(0,50,1,30),sigmaNotation(0,50,1,90),sigmaNotation(0,50,1,120,),sigmaNotation(0,50,1,0) ]
-     solu = [0.499999999741665544,1.0,5,0.0]
+     solu = [0.499999999741665544,1.0,0.8660254043810365,0.0]
      a = len(test)
      for x in range(0 ,a):
          if test[x] == solu[x]:
