@@ -12,7 +12,7 @@ do = True
 while do == True:
     if do_something() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
-        print("\nExiting\n")
+        print("\nExiting Test to view commit funtion\n")
         break;        
     else: 
         do == True
