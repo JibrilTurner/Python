@@ -5,4 +5,4 @@ def sigmaNotation(start,end,inc):
         solu = 2*n # eqution 
         sum = sum + solu # sum
     return sum
-print(sigmaNotation(1,9,1))
+print(sigmaNotation(1,3,1))
