@@ -1,12 +1,14 @@
-passwordKey = "47"
-password = input("Enter Password:")
-attempts = 0 
+passwordKey = "42"
+password = input("Enter The Password: ")
+attempts = 0
 
-while passwordKey != password and attempts < 2: 
-    password = input("Enter Password:")
-    attempts = attempts + 1 
+while passwordKey != password and attempts < 2:
+    password = input("Enter The Password")
+    attempts = attempts + 1
 
-if attempts >= 2: 
-    print("eat dick and die ")
-else: 
-    print("good job")
+if attempts >= 2:
+    print("Your password is wrong go to hell.")
+else:
+    print("Your password is right have a very nice day.")
+
+

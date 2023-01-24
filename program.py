@@ -1,5 +1,3 @@
-
-
 def do_something():
     exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
     if exit_test == 1:
@@ -12,7 +10,7 @@ do = True
 while do == True:
     if do_something() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
-        print("\nExiting Test to view commit funtion\n")
+        print("\nExiting\n")
         break;        
     else: 
         do == True
