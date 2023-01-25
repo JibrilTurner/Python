@@ -40,7 +40,7 @@
 # Mid Course ΔY-Axis       = S1200Km - E4500Km -> S750Mi   - E2796Mi 
 # Mid Course ΔX-Axis       = S2000Km - E5569km -> S1242Mi  - E2426Mi 
 # Mid Course ΔVelocity     = S14000Kmh - E24000Kmh -> S8700Mph - E14914.24Mph 
-#
+# b dbn
 # ReEntry Phase = 2 Moves  
 # ReEntry Phase  ΔY-Axis   = S4500km - E0Km     -> S2796Mi - E500    
 # ReEntry Phase  ΔX-Axis   = S5569km - E7822Km  -> S2426Mi - E14914.24 
@@ -52,48 +52,42 @@
 # Phase = N/A
 # Name = Nuke[X] 
 # Move = 0 
-# Y-Axis-Pos = 0Km
-# X-Axis-Pos = 0Km
+# Pos = S(0,0) -> E(0,0)
 # Velocity = 0Kmh
 # ETA = 5 Moves
 
 # Phase = Boost Phase 
 # Name = Nuke[X] 
 # Move = 1 
-# Y-Axis-Pos = 600Km
-# X-Axis-Pos = 1952Km
+# Pos = S(0,0) -> E(1150,2000)
 # Velocity = 7000Kmh
 # ETA = 4 Moves
 
 # Phase = Boost Phase 
 # Name = Nuke[X] 
 # Move = 2
-# Y-Axis-Pos = 1200Km
-# X-Axis-Pos = 3905Km
+# Pos = S(1150,2000) -> E(2750,4000)
 # Velocity = 14000Kmh
 # ETA = 3 Moves
 
 # Phase = Mid Course 
 # Name = Nuke[X] 
 # Move = 3
-# Y-Axis-Pos = 4500Km
-# X-Axis-Pos = 4569Km
+# Pos = S(2750,4000) -> E(5150,4000)
 # Velocity = 24000Kmh
 # ETA = 2 Moves
 
 # Phase = ReEntry Phase 
 # Name = Nuke[X] 
 # Move = 4
-# Y-Axis-Pos = 2250Km
-# X-Axis-Pos = 5569km
+# Pos (5150,4000) -> (7837,30)
 # Velocity = 12000Kmh
 # ETA = 1 Moves
 
 # Phase = ReEntry Phase 
 # Name = Nuke[X] 
 # Move = 5
-# Y-Axis-Pos = 30Km
-# X-Axis-Pos = 7822Km
+# Pos (7837,30) -> (Boom)
 # Velocity = 4000Kmh
 # ETA = 0 Moves
 
