@@ -1,90 +1,47 @@
-# 1/24/23 Made By Jibril 
-# expected outPut
-# https://en.wikipedia.org/wiki/Intercontinental_ballistic_missile#:~:text=Flight%20phases,-The%20following%20flight&text=reentry%2Fterminal%20phase%20(starting%20at,see%20also%20maneuverable%20reentry%20vehicle. 
-
-# General Info 
-# V = Velocity
-# Δ = Change in X 
-# S = Start Of A Phase 
-# E = End Of A Phase
-
-# Projectile Info 
-# Name = X 
-# Total Moves = X
-# Explotion Radis = X 
-# totalMoves = 5
-
-# Function 
-# 
-# 
-#
-# Notes 
-# You will Start with Three and are not Renewable 
-#
-#
-
-# Info 
-# Velocity Range = 0Kmh -> 24000.0Kmh -> 0Mph -> 15000.0Mph
-# X-Axis Range   = 0km  -> 7822.0Km   -> 0Mi  -> 4860.0Mi
-# Y-Axis Range   = 0km  -> 4500.0Km   -> 0Mi  -> 2796.1Mi 
-
-# Boost Phase = 2 Moves  
-# Boost Phase  ΔY-Axis   = S0km - E1200Km     -> S0Mi - E750Mi   
-# Boost Phase  ΔX-Axis   = S0km - E3905       -> S0mi - E2426Mi
-# Boost Phase  ΔVelocity = S0Kmh - E14000Kmh ->  S0Mi  -E14914Mph
-#   
-# Mid Course = 1 Move      
-# Mid Course ΔY-Axis       = S1200Km - E4500Km -> S750Mi   - E2796Mi 
-# Mid Course ΔX-Axis       = S2000Km - E3905Km -> S1242Mi  - E2426Mi 
-# Mid Course ΔVelocity     = S14000Kmh - E24000Kmh -> S8700Mph - E14914.24Mph 
-#
-# ReEntry Phase = 2 Moves  
-# ReEntry Phase  ΔY-Axis   = S4500km - E0Km     -> S2796Mi - E500    
-# ReEntry Phase  ΔX-Axis   = S3905Km - E24000km -> S2426Mi - E14914.24 
-# ReEntry Phase  ΔVelocity = S24000Kmh - 100Kmh -> S14914.24Mph - 62Mph
+def do_something():
+    exit_test = int(input("enter 0 to exit Or enter 1 Make a move: "))
+    if exit_test == 1:
+        test_output = True
+    else:
+        test_output = False
+    return test_output
 
 
-# Start
+class projectile:
+  def __init__(self, name,deltaX,deltaY,totalMoves, maxYpos ,maxXpos,numberOfProjectile,radius,startingXpos,startingYpos ):
+    self.totalMoves = totalMoves 
+    self.maxYpos = maxYpos
+    self.maxXpos = maxXpos
+    self.currentPos = maxXpos,maxYpos
+    self.numberOfProjectile = numberOfProjectile 
+    self.radius = radius 
+    self.startingXpos = startingXpos
+    self.startingYpos = startingYpos
+    self.deltaX = deltaX
+    self.deltaY = deltaY
+    self.name = name 
 
-# Move = 1 
-# Y-Axis-Pos = 600Km
-# X-Axis-Pos = 1952Km
-# Velocity = 7000
-# ETA = 4  Moves
-
-# Move = 2 
-# Y-Axis-Pos = 
-# X-Axis-Pos = Km
-# Velocity = 
-# ETA = Moves
-
-# Move = 1 
-# Y-Axis-Pos = 600Km
-# X-Axis-Pos = 1952Km
-# Velocity = 7000
-# ETA = 4  Moves
+p2 = PlayerStats("Jibril","mage",17.5,10)
+Nuke = projectile("Nuke",)
 
 
 
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
 
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
-
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
-
-# Endu
+counter = 0 
+do = True
+while do == True:
+    if do_something() == False:
+        #Instead of Breaking Send to Another Function Or Break To Close program
+        print("\nExiting\n")
+        break;        
+    else: 
+        do == True
+        counter = counter + 1 
+        if counter > 5: 
+            print("boom")
+            else:
+                
+        print(counter)
+        #Write Code Here
+        print("\nNot Exiting\n")
+        
