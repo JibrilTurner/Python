@@ -8,6 +8,21 @@
 # S = Start Of A Phase 
 # E = End Of A Phase
 
+# Projectile Info 
+# Name = X 
+# Total Moves = X
+# Explotion Radis = X 
+# totalMoves = 5
+
+# Function 
+# 
+# 
+#
+# Notes 
+# You will Start with Three and are not Renewable 
+#
+#
+
 # Info 
 # Velocity Range = 0Kmh -> 24000.0Kmh -> 0Mph -> 15000.0Mph
 # X-Axis Range   = 0km  -> 7822.0Km   -> 0Mi  -> 4860.0Mi
@@ -29,9 +44,6 @@
 # ReEntry Phase  ΔVelocity = S24000Kmh - 100Kmh -> S14914.24Mph - 62Mph
 
 
-
-# Total Moves    = 5 Moves 
-
 # Start
 
 # Move = 1 
@@ -40,12 +52,19 @@
 # Velocity = 7000
 # ETA = 4  Moves
 
-# Y-Axis-Pos = 1200km
+# Move = 2 
+# Y-Axis-Pos = 
+# X-Axis-Pos = Km
+# Velocity = 
+# ETA = Moves
+
+# Move = 1 
+# Y-Axis-Pos = 600Km
 # X-Axis-Pos = 1952Km
-# Velocity = 3905Kmh
-# ETA = 4 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
+# Velocity = 7000
+# ETA = 4  Moves
+
+
 
 # Altitude = 0.0  
 # Speed = 0.0 
@@ -68,4 +87,4 @@
 # Speed =  
 # ETA = 5 Moves
 
-# End
+# Endu

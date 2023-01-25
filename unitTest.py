@@ -10,9 +10,9 @@ def test1():
     print(x)
     for x in range(0 ,x):
         if test[x] == solu[x]:
-          print("Test %d Passed  " % (x))
+          print("Test %d Passed ✔ " % (x))
         else:
-         print("Test %d Failed " % (x))
+         print("Test %d Failed ✖" % (x))
 
-
+         
 print(test1())
