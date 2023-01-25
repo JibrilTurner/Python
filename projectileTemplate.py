@@ -37,7 +37,8 @@
 # ReEntry Phase  ΔX-Axis   = Skm  - E       -> Smi - EMi
 # ReEntry Phase  ΔVelocity = SKmh - EKmh    -> SMi - EMph
 
-# End Of Expected OutPut
+# Start Of Expected OutPut
+
 # Name = X
 # CurrentMove = X 
 # Y-Axis-Pos = XKm - XMi
