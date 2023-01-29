@@ -16,3 +16,18 @@ def test1():
 
          
 print(test1())
+
+
+
+def gptAdd(num1, num2):
+    return num1 + num2
+
+def test1():
+  tests = [gptAdd(2, 2), gptAdd(5, 8)]
+  solutions = [4, 13]
+  n = len(solutions)
+  for i in range(n):
+    result = "Passed" if tests[i] == solutions[i] else "Failed"
+    print(f"Test {i} {result}")
+
+test1()

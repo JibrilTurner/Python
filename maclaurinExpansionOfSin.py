@@ -18,7 +18,7 @@ def test1():
          else:
            print("Test %d Failed" % (x))
 
-print(test1())
+print(test1()) 
 print("Index Of Sigma Cannot Go Above 50")#level of percison Max = 50 
 indexOfSum = int(input("Enter the Index of Sigma:"))#level of percison Max = 50 
 wholePointOfThisCalc = int(input("Enter the X -> sin(X):"))
