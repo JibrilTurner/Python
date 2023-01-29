@@ -1,5 +1,3 @@
-
-
 def do_something():
     exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
     if exit_test == 1:
@@ -18,4 +16,5 @@ while do == True:
         do == True
         #Write Code Here
         print("\nNot Exiting\n")
+        
         
