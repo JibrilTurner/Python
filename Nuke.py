@@ -115,30 +115,36 @@ def current_Info():
 
 # is the move system of the game and will also be the games main loop  
 
+
+def player_Picker():
+    if move_Counter % 2 == 0:
+        print("playerone") 
+    else: 
+        print("playerTwo")
+    
+
+def do_something():
+    exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
+    if exit_test == 1:
+        player_Picker()
+        test_output = True
+    else:
+        test_output = False
+    return test_output
+
 move_Counter = 0 
-do = False # on and off switch for game loop
 
-if coin_toss() == False:
-        move_Counter = move_Counter + 1
-else: 
-        do == True
-        move_Counter = move_Counter + 2
+do = True # on and off switch for game loop
 while do == True:
-    if move_Counter % 2 == 1:
-            move_Counter = move_Counter + 1
-            print("PlayerOnes Turn")
-            current_Info()
-            player_One_Choice()
+    if do_something() == False:
+        #Instead of Breaking Send to Another Function Or Break To Close program
+        print("\nExiting\n")
+        break; 
     else: 
-            move_Counter = move_Counter + 1
-            print("Skip Move\n")
-    if move_Counter % 2 == 0: # if odd 
-            move_Counter = move_Counter + 1
-            print("PlayerTwo Turn")
-            current_Info()
-            player_Two_Choice()
-    else: 
-            move_Counter = move_Counter + 1
-            print("Skip Move\n")
-
+        move_Counter = move_Counter + 1
+        print(move_Counter)
+        #Write Code Here
+        print("\nNot Exiting\n")
+        
+        
 
