@@ -1,4 +1,4 @@
-import math
+import math 
 def sigmaNotation(start,end,inc,x):
     sin = 0
     for n in range(start,end,inc): #Start End Inc
