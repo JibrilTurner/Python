@@ -12,46 +12,55 @@ class projectile: # everything is mesured in Km unless stated otherwise
     self.currentPos = currntPos
     self.name = name 
     self.blastRadius = blastRadius 
-    self.eta = totalMoves - totalMoves 
+    self.eta = eta
 
 
 
 
 def lanch_Nuke(): # everything is mesured in Km unless stated otherwise # contains updated version 
     def display_info():
-        print(nuke.totalMoves)       
+        print("TotalMove = %d" % nuke.totalMoves)       
         print("Name = " + nuke.name)
-        print("Current Move = %d" % (nuke.totalMoves))
+        print("Current Move = %d" % (nuke.eta ))
         print("Total Projectiles = %d" %  (nuke.numberOfProjectile) )  
-        print("The Blast Raduis\n = %d" % (nuke.blastRadius))
-        print("The eta\n = %d" % (nuke.eta))
+        print("The Blast Raduis = %d" % (nuke.blastRadius))
+        print("Pos = (%d,%d)\n" % (currentPos))
 
                
-
-
-    print("Lanched Nuke")
-    nuke = projectile("Nuke",5,(0,0),1,5)
+    print("\nLanched Nuke")
+    nuke = projectile("Nuke",5,(0,0),1,5,0)
 
     while nuke.eta <= 5: 
             if nuke.eta == 0 : 
-                nuke.eta + 1 
+                currentPos = (0,0) 
+                nuke.eta = nuke.eta + 1
                 display_info()
-                
+                player_Choice()
             elif nuke.eta == 1: 
-                nuke.eta + 1 
-                print(nuke.eta)
+                currentPos = (1150,2000) 
+                nuke.eta = nuke.eta + 1
+                display_info()
+                player_Choice()
+
             elif nuke.eta == 2 :
-                nuke.eta + 1 
-                print(nuke.totalMoves)
                 currentPos = (2750,4000) 
+                nuke.eta = nuke.eta + 1
+                display_info()
             elif nuke.totalMoves == 3: 
                 currentPos = (5150,4500)
+                nuke.eta = nuke.eta + 1 
+                display_info()
             elif nuke.totalMoves == 4: 
                 currentPos = (6700,2000)
+                nuke.eta = nuke.eta + 1
+                display_info()
+
             elif nuke.totalMoves == 5:
                 currentPos = (7850,30)
-                     
-            if nuke.totalMoves >= 5: 
+                nuke.eta = nuke.eta + 1
+                display_info()    
+
+            if nuke.eta >= 5: 
                 print("boom")
                 break; 
 
@@ -125,7 +134,7 @@ move_Counter = 0
 
 def do_something():
     global move_Counter
-    exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
+    exit_test = int(input("enter 0 to exit Or enter 1 to loop:\n "))
     if exit_test == 1:
         player_Picker()
         test_output = True
@@ -153,7 +162,7 @@ def player_Choice():
     else: 
         player_Choice = int(input("Player Choice PlayerTwo\nenter 0 to exit\nenter 1 to loop: "))
 
-do = False # on and off switch for game loop
+do = True # on and off switch for game loop
 while do == True:
     if do_something() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
@@ -165,4 +174,3 @@ while do == True:
         player_Choice()
         print("\nNot Exiting\n")
 
-lanch_Nuke()

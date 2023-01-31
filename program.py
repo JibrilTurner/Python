@@ -16,3 +16,8 @@ while do == True:
         do == True
         #Write Code Here
         print("\nNot Exiting\n")
+<<<<<<< HEAD
+=======
+        
+        
+>>>>>>> 7d77e12677379fda1f93344f59f6c6c45278e690
