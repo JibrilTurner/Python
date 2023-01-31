@@ -1,14 +1,34 @@
-passwordKey = "42"
-password = input("Enter The Password: ")
-attempts = 0
-
-while passwordKey != password and attempts < 2:
-    password = input("Enter The Password")
-    attempts = attempts + 1
-
-if attempts >= 2:
-    print("Your password is wrong go to hell.")
-else:
-    print("Your password is right have a very nice day.")
+def do_something():
+    exit_test = int(input("enter 0 to exit Or enter 1 Make a move: "))
+    if exit_test == 1:
+        test_output = True
+    else:
+        test_output = False
+    return test_output
 
 
+
+
+
+
+counter = 0 
+do = True
+while do == True:
+    if do_something() == False:
+        #Instead of Breaking Send to Another Function Or Break To Close program
+        print("\nExiting\n")
+        break;        
+    else: 
+        do == True
+        if counter == 5: 
+            print("boom")
+        else:
+
+
+
+
+            counter = counter + 1 
+            print(counter)
+        #Write Code Here
+        print("\nNot Exiting\n")
+        
