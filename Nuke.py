@@ -1,8 +1,5 @@
 import random
 
-
-
-
 class projectile: # everything is mesured in Km unless stated otherwise
   def __init__(self, name,totalMoves,currntPos,numberOfProjectile,blastRadius):
     self.totalMoves = totalMoves 
@@ -107,32 +104,42 @@ def player_Two_Choice(): # will be the basis For the options a player is given
         test_output = False
     return test_output
 
-def current_Objects():
-     print("Empty")
-
-def current_Info():
-     print(move_Counter)
 
 # is the move system of the game and will also be the games main loop  
 
-
-def player_Picker():
-    if move_Counter % 2 == 0:
-        print("playerone") 
-    else: 
-        print("playerTwo")
-    
+move_Counter = 0 
 
 def do_something():
+    global move_Counter
     exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
     if exit_test == 1:
         player_Picker()
         test_output = True
     else:
         test_output = False
-    return test_output
+    return test_output 
 
-move_Counter = 0 
+def player_Picker():
+    global move_Counter
+    if move_Counter % 2 == 0:
+        current_Player = True
+    else: 
+        current_Player = False
+    return current_Player
+
+
+
+def player_Choice():
+    global move_Counter
+    if player_Picker() == True:
+        player_Choice = int(input("Player Choice PlayerOne\nenter 0 to skip\nenter 1 to lanch nuke: "))
+        if player_Choice == 0:
+            move_Counter = move_Counter + 1       
+        elif player_Choice == 1: 
+            move_Counter = move_Counter + 1       
+            lanch_Nuke()
+    else: 
+        player_Choice = int(input("Player Choice PlayerTwo\nenter 0 to exit\nenter 1 to loop: "))
 
 do = True # on and off switch for game loop
 while do == True:
@@ -143,8 +150,6 @@ while do == True:
     else: 
         move_Counter = move_Counter + 1
         print(move_Counter)
-        #Write Code Here
+        player_Choice()
         print("\nNot Exiting\n")
-        
-        
 
