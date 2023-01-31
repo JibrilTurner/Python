@@ -5,7 +5,7 @@ def do_something():
     else:
         test_output = False
     return test_output
-
+    
 do = True
 while do == True:
     if do_something() == False:
@@ -16,4 +16,3 @@ while do == True:
         do == True
         #Write Code Here
         print("\nNot Exiting\n")
-        

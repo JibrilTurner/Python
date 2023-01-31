@@ -2,70 +2,167 @@
 # expected outPut
 # https://en.wikipedia.org/wiki/Intercontinental_ballistic_missile#:~:text=Flight%20phases,-The%20following%20flight&text=reentry%2Fterminal%20phase%20(starting%20at,see%20also%20maneuverable%20reentry%20vehicle. 
 
-# General Info 
-# V = Velocity
-# Δ = Change in X 
-# S = Start Of A Phase 
-# E = End Of A Phase
+import random
 
-# Info 
-# Velocity Range = 0Kmh -> 24000.0Kmh -> 0Mph -> 15000.0Mph
-# X-Axis Range   = 0km  -> 7822.0Km   -> 0Mi  -> 4860.0Mi
-# Y-Axis Range   = 0km  -> 4500.0Km   -> 0Mi  -> 2796.1Mi 
 
-# Boost Phase = 2 Moves  
-# Boost Phase  ΔY-Axis   = S0km - E1200Km     -> S0Mi - E750Mi   
-# Boost Phase  ΔX-Axis   = S0km - E3905       -> S0mi - E2426Mi
-# Boost Phase  ΔVelocity = S0Kmh - E14000Kmh ->  S0Mi  -E14914Mph
-#   
-# Mid Course = 1 Move      
-# Mid Course ΔY-Axis       = S1200Km - E4500Km -> S750Mi   - E2796Mi 
-# Mid Course ΔX-Axis       = S2000Km - E3905Km -> S1242Mi  - E2426Mi 
-# Mid Course ΔVelocity     = S14000Kmh - E24000Kmh -> S8700Mph - E14914.24Mph 
-#
-# ReEntry Phase = 2 Moves  
-# ReEntry Phase  ΔY-Axis   = S4500km - E0Km     -> S2796Mi - E500    
-# ReEntry Phase  ΔX-Axis   = S3905Km - E24000km -> S2426Mi - E14914.24 
-# ReEntry Phase  ΔVelocity = S24000Kmh - 100Kmh -> S14914.24Mph - 62Mph
+class projectile: # everything is mesured in Km unless stated otherwise
+  def __init__(self, name,totalMoves,currntPos,numberOfProjectile,blastRadius,eta):
+    self.totalMoves = totalMoves 
+    self.numberOfProjectile = numberOfProjectile
+    self.currentPos = currntPos
+    self.name = name 
+    self.blastRadius = blastRadius 
+    self.eta = totalMoves - totalMoves 
 
 
 
-# Total Moves    = 5 Moves 
 
-# Start
+def lanch_Nuke(): # everything is mesured in Km unless stated otherwise # contains updated version 
+    def display_info():
+        print(nuke.totalMoves)       
+        print("Name = " + nuke.name)
+        print("Current Move = %d" % (nuke.totalMoves))
+        print("Total Projectiles = %d" %  (nuke.numberOfProjectile) )  
+        print("The Blast Raduis\n = %d" % (nuke.blastRadius))
+        print("The eta\n = %d" % (nuke.eta))
 
-# Move = 1 
-# Y-Axis-Pos = 600Km
-# X-Axis-Pos = 1952Km
-# Velocity = 7000
-# ETA = 4  Moves
+               
 
-# Y-Axis-Pos = 1200km
-# X-Axis-Pos = 1952Km
-# Velocity = 3905Kmh
-# ETA = 4 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
 
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
+    print("Lanched Nuke")
+    nuke = projectile("Nuke",5,(0,0),1,5)
 
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
+    while nuke.eta <= 5: 
+            if nuke.eta == 0 : 
+                nuke.eta + 1 
+                display_info()
+                
+            elif nuke.eta == 1: 
+                nuke.eta + 1 
+                print(nuke.eta)
+            elif nuke.eta == 2 :
+                nuke.eta + 1 
+                print(nuke.totalMoves)
+                currentPos = (2750,4000) 
+            elif nuke.totalMoves == 3: 
+                currentPos = (5150,4500)
+            elif nuke.totalMoves == 4: 
+                currentPos = (6700,2000)
+            elif nuke.totalMoves == 5:
+                currentPos = (7850,30)
+                     
+            if nuke.totalMoves >= 5: 
+                print("boom")
+                break; 
 
-# Altitude = 0.0  
-# Speed = 0.0 
-# ETA = 5 Moves
-# Altitude = 1500.0Km -> 932.9Mi 
-# Speed =  
-# ETA = 5 Moves
 
-# End
+       
+def lanch_General_Purpose_Missle(): # everything is mesured in Km unless stated otherwise
+
+    print("general_Purpose_Misslee")
+    gPM = projectile("general Purpose Missle",5,(0,0),1)
+    gPM.totalMoves = -1 
+    do = True
+    while do == True:
+            if gPM.totalMoves < 0:
+             gPM.totalMoves = gPM.totalMoves + 1
+             currentPos = (0,0) 
+            elif gPM.totalMoves == 1: 
+                currentPos = (1150,2000) 
+            elif gPM.totalMoves == 2 :
+                currentPos = (2750,4000) 
+            elif gPM.totalMoves == 3: 
+                currentPos = (5150,4500)
+            elif gPM.totalMoves == 4: 
+                currentPos = (6700,2000)
+            elif gPM.totalMoves == 5:
+                currentPos = (7850,30)
+                     
+            if gPM.totalMoves > 5: 
+                print("boom")
+                break; 
+            else:        
+                    print(gPM.totalMoves)       
+                    print("Name = " + gPM.name)
+                    print("Current Move = %d" % (gPM.totalMoves))
+                    print("Pos = (%d,%d)" % (currentPos))
+                    print("Total Projectiles = %d" %  (gPM.numberOfProjectile) )                
+                    print("\nNot Exiting\n")
+
+def coin_toss(): # Ran First Starts the Game 
+    coin = (random.randint(0,1))
+    if coin == 0:
+        test_output = True
+    else:
+        test_output = False
+    return test_output
+
+def player_One_Choice(): # will be the basis For the options a player is given
+    exit_test = int(input("playerOneChoice\nenter 0 to fail test Or enter 1 to passtest NUKE: "))
+    if exit_test == 1:
+        print("Test = true")
+        test_output = True
+    else:
+        print("Test = false")
+        test_output = False
+    return test_output
+
+def player_Two_Choice(): # will be the basis For the options a player is given
+    exit_test = int(input("playerTwoChoice\nenter 0 to fail test Or enter 1 to passtest NUKE: "))
+    if exit_test == 1:
+        print("Test = true")
+        lanch_Nuke()
+        test_output = True
+    else:
+        print("Test = false")
+        test_output = False
+    return test_output
+
+
+# is the move system of the game and will also be the games main loop  
+
+move_Counter = 0 
+
+def do_something():
+    global move_Counter
+    exit_test = int(input("enter 0 to exit Or enter 1 to loop: "))
+    if exit_test == 1:
+        player_Picker()
+        test_output = True
+    else:
+        test_output = False
+    return test_output 
+
+def player_Picker():
+    global move_Counter
+    if move_Counter % 2 == 0:
+        current_Player = True
+    else: 
+        current_Player = False
+    return current_Player
+
+def player_Choice():
+    global move_Counter
+    if player_Picker() == True:
+        player_Choice = int(input("Player Choice PlayerOne\nenter 0 to skip\nenter 1 to lanch nuke: "))
+        if player_Choice == 0:
+            move_Counter = move_Counter + 1       
+        elif player_Choice == 1: 
+            move_Counter = move_Counter + 1       
+            lanch_Nuke()
+    else: 
+        player_Choice = int(input("Player Choice PlayerTwo\nenter 0 to exit\nenter 1 to loop: "))
+
+do = False # on and off switch for game loop
+while do == True:
+    if do_something() == False:
+        #Instead of Breaking Send to Another Function Or Break To Close program
+        print("\nExiting\n")
+        break; 
+    else: 
+        move_Counter = move_Counter + 1
+        print(move_Counter)
+        player_Choice()
+        print("\nNot Exiting\n")
+
+lanch_Nuke()
