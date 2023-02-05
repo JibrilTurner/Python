@@ -7,11 +7,18 @@
 #
 # For The love of god make sure your flags are accrate 
 # 
-# Fucking Write Test, Holy shit. Test are imporant 8:44PM 2/1/2023 
-
-
-
+# Fucking Write Test, Holy shit. Test are imporant. 
+# Date Of THE Incident 8:44PM 2/1/2023 
+#
+# Set_Countrys at the begainnig of the game implemting Coin_Toss to randmoize it 
+# Add A pouplation Funtion 
+#
 import random
+
+
+nukes = []
+ICBM =  [] 
+Locations = ["Capital", "Industry","Radar", "MissleDefense"]
 
 class projectile: # everything is mesured in Km unless stated otherwise
   def __init__(self, name,totalMoves,currntPos,numberOfProjectile,blastRadius,eta):
@@ -22,8 +29,83 @@ class projectile: # everything is mesured in Km unless stated otherwise
     self.blastRadius = blastRadius 
     self.eta = eta
 
-nukes = []
-ICBM =  [] 
+class Country:
+    def __init__(self, name, population, xCords,yCords):
+        self.name = name
+        self.population = population
+        self.xCords = xCords
+        self.yCords = yCords
+
+class Capital(Country):
+    def __init__(self, name, population,xCords,yCords):
+        super().__init__(name, population, xCords, yCords)
+
+class Industry(Country):
+    def __init__(self, name, workers,xCords,yCords):
+        super().__init__(name, 0, xCords, yCords)
+        self.workers = workers
+
+class Radar(Country):
+    def __init__(self, name, workers, xCords,yCords, radius, power):
+        super().__init__(name, workers, xCords, yCords)
+        self.radius = radius
+        self.power = power 
+        self.workers = workers
+
+class MissleDefenseSystem(Country):
+    def __init__(self, name, workers, xCords,yCords, radius, power):
+        super().__init__(name, workers, xCords, yCords)
+        self.radius = radius
+        self.power = power 
+        self.radius = radius
+        self.workers = workers
+
+def set_cuba():
+    def display_info():
+        print("\ndisplay_info")
+        print("\nCountry name:", cuba.name,"\nCountry population:", cuba.population,"\nCountry Xcords:", cuba.xCords,"\nCountry Ycords:", cuba.yCords)
+        print("\nCapital name:", moscow.name,"\nCapital population:", moscow.population,"\nCapital Xcords:", moscow.xCords,"\nCapital Ycords:", moscow.yCords)
+        print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
+        print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
+        print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)
+
+    for x in range(0, 4, 1):
+        Xcords = int(input("\nset_Country\nEnter X Cords For %s: " % Locations[x]))
+        Ycords = int(input("set_Country\nEnter Y Cords For %s: " % Locations[x]))
+        cuba = Country('cuba', 60000, 500, 275)
+        if Locations[x] == "Capital":
+            moscow = Capital('Moscow', 60000, Xcords, Ycords)
+        elif Locations[x] == "Industry":
+            factory = Industry("Bomb Factory", 5000, Xcords, Ycords)
+        elif Locations[x] == "Radar":
+            radar = Radar("Radar", 5000, Xcords, Ycords, 50, 1)
+        elif Locations[x] == "MissleDefense":
+            missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 1)  
+
+            display_info()
+
+def set_america():
+    def display_info():
+        print("\ndisplay_info")
+        print("\nCountry name:", america.name,"\nCountry population:", america.population,"\nCountry Xcords:", america.xCords,"\nCountry Ycords:", america.yCords)
+        print("\nCapital name:", washington.name,"\nCapital population:", washington.population,"\nCapital Xcords:", washington.xCords,"\nCapital Ycords:", washington.yCords)
+        print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
+        print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
+        print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)
+
+    for x in range(0, 4, 1):
+        Xcords = int(input("\nset_Country\nEnter X Cords For %s: " % Locations[x]))
+        Ycords = int(input("set_Country\nEnter Y Cords For %s: " % Locations[x]))
+        america = Country('USA', 60000, 500, 275)
+        if Locations[x] == "Capital":
+            washington = Capital('washington', 60000, Xcords, Ycords)
+        elif Locations[x] == "Industry":
+            factory = Industry("Bomb Factory", 5000, Xcords, Ycords)
+        elif Locations[x] == "Radar":
+            radar = Radar("Radar", 5000, Xcords, Ycords, 50, 1)
+        elif Locations[x] == "MissleDefense":
+            missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 1)  
+            display_info()
 
 def launch_Nuke(nuke):
     def display_info(): 
@@ -63,9 +145,9 @@ def launch_ICBM(ICBM):
     ICBM = projectile("ICBM", 5, (0,0), 1, 0.5, 0)
     positions = [(0,0),(2500, 850), (4000,1000),(5570,800),(7850,0)]   
 
-    for i, x in enumerate(range(ICBM.eta, ICBM.totalMoves, 1)): 
+    for x in (range(ICBM.eta, ICBM.totalMoves, 1)): 
         currentPos = positions[x]
-        display_info(i+1)    
+        display_info()    
         # test_Player() # For testing purposes 
         player_Picker() # For the real game 
         ICBM.eta = x + 1
@@ -75,11 +157,11 @@ def launch_ICBM(ICBM):
         #test_Player() # For testing purposes 
             break
 
-
 def coin_toss(): # Ran First Starts the Game 
     coin = (random.randint(0,1))
     if coin == 0:
         print("coin_toss\nmove_Counter = 0 ") # Remove Later
+
         move_Counter = 0 
     else:
         print("coin_toss\nmove_Counter = 1 ") # Remove Later
@@ -94,7 +176,6 @@ def player_Picker():
         player_One_Choice()
     else: 
         player_Two_Choice()
-
 
 def test_Player(): # Remove Later
     global move_Counter
@@ -141,10 +222,8 @@ def player_Two_Choice():
         print("player_One_Choice\nMove Was skipped") # Remove Later
         move_Counter = move_Counter + 1       
 
-# is the move system of the game and will also be the games main loop  
-
-
-do = True # on and off switch for game loop
+# is the move system of the game and will also be the games main loop 
+do = False # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
@@ -153,3 +232,6 @@ while do == True:
     else: 
         player_Picker()
         print("Not Exiting\n")
+
+set_america()
+set_cuba()
