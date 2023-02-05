@@ -81,9 +81,8 @@ def set_cuba():
             radar = Radar("Radar", 5000, Xcords, Ycords, 50, 1)
         elif Locations[x] == "MissleDefense":
             missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 1)  
-
             display_info()
-
+    
 def set_america():
     def display_info():
         print("\ndisplay_info")
@@ -92,10 +91,11 @@ def set_america():
         print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
         print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
         print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)
-
+        
     for x in range(0, 4, 1):
         Xcords = int(input("\nset_Country\nEnter X Cords For %s: " % Locations[x]))
         Ycords = int(input("set_Country\nEnter Y Cords For %s: " % Locations[x]))
+        global america,washington,factory,radar,missleDefense
         america = Country('USA', 60000, 500, 275)
         if Locations[x] == "Capital":
             washington = Capital('washington', 60000, Xcords, Ycords)
@@ -107,6 +107,17 @@ def set_america():
             missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 1)  
             display_info()
 
+
+def display_america(): 
+    global america, washington, factory, radar, missleDefense
+    print("\ndisplay_info")
+    print("\nCountry name:", america.name,"\nCountry population:", america.population,"\nCountry Xcords:", america.xCords,"\nCountry Ycords:", america.yCords)
+    print("\nCapital name:", washington.name,"\nCapital population:", washington.population,"\nCapital Xcords:", washington.xCords,"\nCapital Ycords:", washington.yCords)
+    print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
+    print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
+    print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)        
+          
+            
 def launch_Nuke(nuke):
     def display_info(): 
         print("\nTotalMove = %d" % nuke.totalMoves)       
@@ -161,7 +172,6 @@ def coin_toss(): # Ran First Starts the Game
     coin = (random.randint(0,1))
     if coin == 0:
         print("coin_toss\nmove_Counter = 0 ") # Remove Later
-
         move_Counter = 0 
     else:
         print("coin_toss\nmove_Counter = 1 ") # Remove Later
@@ -234,4 +244,4 @@ while do == True:
         print("Not Exiting\n")
 
 set_america()
-set_cuba()
+display_america()
