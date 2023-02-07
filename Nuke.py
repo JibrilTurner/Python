@@ -84,7 +84,11 @@ def set_cuba():
 
     for x in range(0, 4, 1):
         Xcords = int(input("\nset_cuba\nEnter X Cords For %s: " % Locations[x]))
+        while Xcords > 500:
+            Xcords = int(input("X Cords Cannot be greater than 500, Enter X Cords Again: "))
         Ycords = int(input("Enter Y Cords For %s: " % Locations[x]))
+        while Ycords > 500:
+            Ycords = int(input("Y Cords Cannot be greater than 500, Enter Y Cords Again: "))
         global cuba,havana,factory,radar,missleDefense
         cuba = Country('cuba', 60000, 500, 275)
         if Locations[x] == "Capital":
@@ -105,10 +109,14 @@ def set_america():
         print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
         print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
         print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)
-        
+            
     for x in range(0, 4, 1):
         Xcords = int(input("\nset_america\nEnter X Cords For %s: " % Locations[x]))
+        while Xcords > 500:
+            Xcords = int(input("X Cords Cannot be greater than 500, Enter X Cords Again: "))
         Ycords = int(input("Enter Y Cords For %s: " % Locations[x]))
+        while Ycords > 500:
+            Ycords = int(input("Y Cords Cannot be greater than 500, Enter Y Cords Again: "))
         global america,washington,factory,radar,missleDefense
         america = Country('USA', 60000, 500, 275)
         if Locations[x] == "Capital":
@@ -120,7 +128,7 @@ def set_america():
         elif Locations[x] == "MissleDefense":
             missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 2)  
             display_info()
-
+            
 def display_cuba(): 
     print("\ndisplay_cuba")
     print("Country name:", cuba.name,"\nCountry population:", cuba.population,"\nCountry Xcords:", cuba.xCords,"\nCountry Ycords:", cuba.yCords)
