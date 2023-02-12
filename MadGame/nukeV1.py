@@ -208,8 +208,7 @@ def intersection_area(d,r1,r2): # finds the area of the intersection of two circ
     d1 = (r1**2 - r2**2 + d**2) / (2 * d)
     d2 = d - d1
     area = (r1**2 * acos(d1/r1) - d1 * sqrt(r1**2 - d1**2)) + (r2**2 * acos(d2/r2) - d2 * sqrt(r2**2 - d2**2))
-    return area
-
+    return round(area ,2) ,d1 ,d2
 def circle_area(r): # finds the area of a circle,  r = raduis  
     area = 3.14 * r**2
     return area 
@@ -325,7 +324,7 @@ def player_Two_Choice(): # choices playerTwo can make
 
 
 # is the move system of the game and will also be the games main loop 
-do = True # on and off switch for game loop
+do = False # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
