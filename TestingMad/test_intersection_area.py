@@ -1,4 +1,4 @@
-import nukeV1
+import test_Nuke
 
 def test_intersection_area():
     test_cases = [
@@ -9,10 +9,10 @@ def test_intersection_area():
 
     for i, (r1,r2,d, expected) in enumerate(test_cases):
         try:
-            area, d1, d2 = nukeV1.intersection_area(r1, r2,d)
+            area, d1, d2 = test_Nuke.intersection_area(r1, r2,d)
             passed = round(area, 2) == round(expected, 2)
             status = "PASSED" if passed else "FAILED"
-            print(f"Test {i}: {status}\nInput: R1 = {r1}, R2 = {r2}, D = {d}\nOutput: Area = {area}, D1 = {d1} , D2 = {d2}\nExpected: {expected}\nGot: {area}\n")
+            print(f"Test {i}: {status}\nInput: R1 = {r1}, R2 = {r2}, D = {d}\nOutput: Area = {area}, D1 = {d1} , D2 = {d2}\nExpected: {expected}\nGot: {area}\nGot: {passed}\n\n")
         except Exception as e:
             print(f"Test {i}: FAILED\nInput: R1 = {r1}, R2 = {r2}, D = {d}\nError: {str(e)}\n")
 
