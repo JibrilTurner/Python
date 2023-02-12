@@ -19,7 +19,7 @@ def test_differentiate():
     test_cases = [
         (15, 2, "30x^1"),
         (37, 4, "148x^3"),
-        (4,  8, "64x^7")
+        (4,  8, "32x^7")
     ]
 
     for i, (base, exponent, expected) in enumerate(test_cases):

@@ -23,7 +23,7 @@ country_picked = False
 player_Country = ""
 
 class projectile: # everything is mesured in Km unless stated otherwise
-  def __init__(self, name, totalMoves, currntPos, numberOfProjectile, blastRadius, eta, owner):
+  def __init__(self, name, totalMoves, currntPos, numberOfProjectile, blastRadius, eta, owner,destCords):
     self.totalMoves = totalMoves 
     self.numberOfProjectile = numberOfProjectile
     self.currentPos = currntPos
@@ -31,6 +31,7 @@ class projectile: # everything is mesured in Km unless stated otherwise
     self.blastRadius = blastRadius 
     self.eta = eta
     self.owner = owner
+    self.destCords = destCords
 
 class Country:
     def __init__(self, name, population, xCords, yCords):
@@ -169,13 +170,13 @@ def launch_Nuke(nuke, owner):
     for x in range(nuke.eta, nuke.totalMoves, 1): 
         currentPos = positions[x]
         display_info()    
-        # test_Player() # For testing purposes 
-        player_Picker() # For the real game 
+        test_Player() # For testing purposes 
+        # player_Picker() # For the real game 
         nuke.eta = x + 1
         if nuke.eta == nuke.totalMoves:
             print("Nuke\nBoom!")
-            player_Picker() # For the real game 
-           #test_Player() # For testing purposes 
+            # player_Picker() # For the real game 
+            test_Player() # For testing purposes 
             break 
 
 def launch_ICBM(ICBM, owner):
@@ -228,14 +229,15 @@ move_Counter = coin_toss()
 def player_Picker(): # ran everytime and will choose the player based off a counter 
     global move_Counter, country_picked
     if move_Counter % 2 == 0:
-        if not country_picked:
-            country_Picker()
-            country_picked = True
-        player_One_Choice()
-       
+        # if not country_picked:
+        #     country_Picker()
+        #     country_picked = True
+        # player_One_Choice()
+        test_Player()
     else:
-        player_Two_Choice()
-               
+        # player_Two_Choice()
+        test_Player()
+
 
 def player_One_Stats(): # displays the stats of playerOne  
     if player_Country == "cuba":
@@ -286,7 +288,7 @@ def country_Picker(): # Gives the player a choice on what country, player is sel
                 print("playerOne is now cuba")
                 set_cuba()
                 player_Country = "america" 
-        country_picked = True
+        country_picked = False
 
 def player_One_Choice(): # choices playerOne can make 
     owner = "player_One"
@@ -324,9 +326,24 @@ def player_Two_Choice(): # choices playerTwo can make
         print("player_Two_Choice\nMove Was skipped") # Remove Later
         move_Counter = move_Counter + 1      
 
+def test_Player(): # Remove Later
+    owner = "test_Player"
+    global move_Counter
+    exit_test = int(input("\nTest_Player_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter Option: "))
+    if exit_test == 1:
+        move_Counter = move_Counter + 1       
+        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        launch_Nuke(nukes[-1],owner)
+    elif exit_test == 2:
+        move_Counter = move_Counter + 1       
+        ICBM.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        launch_ICBM(ICBM[-1],owner)
+    else:
+        move_Counter = move_Counter + 1       
+        print("Test = false") 
 
 # is the   system of the game and will also be the games main loop 
-do = False # on and off switch for game loop
+do = True # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
