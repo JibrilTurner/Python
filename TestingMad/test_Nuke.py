@@ -161,10 +161,16 @@ def launch_Nuke(nuke, owner):
         print("The Blast Raduis = %d" % (nuke.blastRadius))
         print("Pos = (%d,%d)" % (currentPos))
         print("Owner = " + nuke.owner)
+        print("dest = (%d,%d)" % nuke.destCords)
+
         print("\n")
 
     print("\nLaunched Nuke")
-    nuke = projectile("Nuke", 5, (0,0), 1, 5, 0,owner)
+    
+    xCords = int (input("enter Xcords"))
+    yCords = int (input("enter Ycords"))
+
+    nuke = projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(xCords,yCords))
     positions = [(0,0),(1150,2000), (2750,4000),(5150,4500),(6700,2000),(7850,30)]   
 
     for x in range(nuke.eta, nuke.totalMoves, 1): 
@@ -188,9 +194,10 @@ def launch_ICBM(ICBM, owner):
           print("The Blast Raduis = %d" % (ICBM.blastRadius))
           print("Pos = (%d,%d)" % (currentPos))
           print("Owner = " + ICBM.owner)
+          print("dest = (%d,%d)" % ICBM.destCords)
           print("\n")
     print("\nLaunched ICBM")
-    ICBM = projectile("ICBM", 5, (0,0), 1, 0.5, 0,owner)
+    ICBM = projectile("ICBM", 5, (0,0), 1, 0.5, 0,owner,(0,0))
     positions = [(0,0),(2500, 850), (4000,1000),(5570,800),(7850,0)]   
 
     for x in (range(ICBM.eta, ICBM.totalMoves, 1)): 
@@ -295,12 +302,13 @@ def player_One_Choice(): # choices playerOne can make
     global move_Counter 
     exit_test = int(input("\nplayer_One_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
-        move_Counter = move_Counter + 1       
-        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        move_Counter = move_Counter + 1  
+     
+        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(7500,544),))
         launch_Nuke(nukes[-1], owner)
     elif exit_test == 2:
         move_Counter = move_Counter + 1       
-        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner))
+        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner,(7500,544)))
         launch_ICBM(ICBM[-1],owner)
     elif exit_test == 3: 
         player_One_Stats() 
@@ -314,11 +322,11 @@ def player_Two_Choice(): # choices playerTwo can make
     exit_test = int(input("\nplayer_Two_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
         move_Counter = move_Counter + 1       
-        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(7500,544)))
         launch_Nuke(nukes[-1],owner)
     elif exit_test == 2:
         move_Counter = move_Counter + 1       
-        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner))
+        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner,(7500,544)))
         launch_ICBM(ICBM[-1],owner)   
     elif exit_test == 3: 
         player_Two_Stats()    
@@ -331,12 +339,13 @@ def test_Player(): # Remove Later
     global move_Counter
     exit_test = int(input("\nTest_Player_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter Option: "))
     if exit_test == 1:
-        move_Counter = move_Counter + 1       
-        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        move_Counter = move_Counter + 1
+       
+        nukes.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(0,0),))
         launch_Nuke(nukes[-1],owner)
     elif exit_test == 2:
         move_Counter = move_Counter + 1       
-        ICBM.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner))
+        ICBM.append(projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(0,0)))
         launch_ICBM(ICBM[-1],owner)
     else:
         move_Counter = move_Counter + 1       

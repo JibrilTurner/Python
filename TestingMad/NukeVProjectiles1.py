@@ -13,6 +13,7 @@
 # Set_Countrys at the begainnig of the game implemting Coin_Toss to randmoize it 
 # Add A pouplation Funtion 
 #
+import random
 
 nukes = []
 ICBM =  [] 
@@ -108,9 +109,20 @@ def launch_ICBM(ICBM, owner):
             test_Player() # For testing purposes 
             break
 
-move_Counter = 0 
+# def coin_toss(): # Ran First Starts the Game, and is a 50 50 shot wether playerOne or playerTwo will be ran 
+#     coin = (random.randint(0,1))
+#     if coin == 0:
+#         print("coin_toss\nmove_Counter = 0 ") # Remove Later
+#         move_Counter = 0 
+#     else:
+#         print("coin_toss\nmove_Counter = 1 ") # Remove Later
+#         move_Counter = 1 
+#     return move_Counter
+
+
 def player_Picker(): # ran everytime and will choose the player based off a counter 
-    global move_Counter, country_picked
+    move_Counter = 0
+
     if move_Counter % 2 == 0:
         # if not country_picked:
         #     country_Picker()
@@ -128,34 +140,47 @@ def check_Projectile_Collision(projectile, radar):
     if (projectile.destCords == radar.pos):
         print("Location {} was hit".format(radar.name))
     else:                                                                  
-        print("Location {} was not hit".format(radar.name))              
-
-def test_Player():
+        print("Location {} was not hit".format(radar.name))     
+def test_Player(counter=0):
     owner = "test_Player"
-    global move_Counter
-    exit_test = [0,0,0]
-    for x in range(0,2,1):
+    move_Counter = 1
+    exit_test = [0,2,0,0,0,0,0]
+    for x in range(0,7,1):
+        
         if exit_test[x] == 1:
-            move_Counter = move_Counter + 1       
-            nukes.append(projectile("Nuke", 5, (7,0,0), 1, 5, 0,owner,(0,9,0)))
-            launch_Nuke(nukes[-1],owner)
+            print("Test 1")
+            print("x =",x)
+            print("exit test is =",exit_test[x])
+            print("Move Counter =",move_Counter)
+            move_Counter =  move_Counter + 1
+            print("\n")
         elif exit_test[x] == 2:
-            move_Counter = move_Counter + 1       
+            print("ICB M")
+
             ICBM.append(projectile("Nuke", 5, (0,0,0), 1, 5, 0,owner,(0,0,0)))
             launch_ICBM(ICBM[-1],owner)
+            move_Counter = move_Counter + 1   
+            print(x) 
+    
+
         else:
-            move_Counter = move_Counter + 1    
-            print(x)
-        if x == 2:
+            print("skip")
+            move_Counter = move_Counter + 1   
+            print(x) 
+
+        if move_Counter == 4:
             break
+
 
 # is the   system of the game and will also be the games main loop 
 do = False # on and off switch for game loop
-while do == True:
+while do:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
         print("\nExiting\n")
-        break; 
+        do = False
     else: 
-        player_Picker()
         print("Not Exiting\n")
+        do = False
+
+launch_ICBM(ICBM[-1],owner)
