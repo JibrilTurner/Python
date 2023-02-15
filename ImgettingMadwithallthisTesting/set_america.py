@@ -11,15 +11,15 @@ class Radar:
         self.workers = workers
 
 
-class Industry:
-    def __init__(self, name, owner, workers ,xCords, yCords, length, width): # in the future create a AddWorker or Do math to add workers 
-        self.name = name
-        self.xCords = xCords
-        self.yCords = yCords
-        self.length = length
-        self.width = width
-        self.owner = owner
-        self.workers = workers
+# class Industry:
+#     def __init__(self, name, owner, workers ,xCords, yCords, length, width): # in the future create a AddWorker or Do math to add workers 
+#         self.name = name
+#         self.xCords = xCords
+#         self.yCords = yCords
+#         self.length = length
+#         self.width = width
+#         self.owner = owner
+#         self.workers = workers
 
 def set_america(name,owner,workers,xCords,yCords,length,width):        
     for x in range(0, 1, 1):
@@ -33,8 +33,7 @@ def set_america(name,owner,workers,xCords,yCords,length,width):
 
         if Locations[x] == "Radar":
             radar = Radar("Radar", owner, workers, xCords, yCords,length,width )
-            elif Locations[x] == "Industry":
-        factory = Industry("Bomb Factory", 5000, Xcords, Ycords,2)
+            
         return radar.name, radar.owner ,radar.workers, radar.xCords, radar.yCords, radar.length, radar.width
 
 

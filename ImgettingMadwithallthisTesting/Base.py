@@ -330,7 +330,7 @@ def check_Projectile_Collision(projectile, radar):
                                                                                                                                                                                                                             
 
 # is the move system of the game and will also be the games main loop 
-do = True # on and off switch for game loop
+do = False # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
