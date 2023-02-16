@@ -8,7 +8,7 @@ class PlayerStats:
     self.level = level 
     self.attack = attack 
 
-p2 = PlayerStats("Jibril","mage",17.5,10)
+p2 = PlayerStats("Class","Test",17.5,10)
 
 print("Your name is " + p2.name)
 print("Your class is " + p2.classs)
