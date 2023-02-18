@@ -141,6 +141,7 @@ def check_Projectile_Collision(projectile, radar):
         print("Location {} was hit".format(radar.name))
     else:                                                                  
         print("Location {} was not hit".format(radar.name))     
+        
 def test_Player(counter=0):
     owner = "test_Player"
     move_Counter = 1
@@ -183,4 +184,3 @@ while do:
         print("Not Exiting\n")
         do = False
 
-launch_ICBM(ICBM[-1],owner)
