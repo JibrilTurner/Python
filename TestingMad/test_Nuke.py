@@ -34,42 +34,37 @@ class projectile: # everything is mesured in Km unless stated otherwise
     self.destCords = destCords
 
 class Country:
-    def __init__(self, name, population, xCords, yCords):
+    def __init__(self, name, population, pos):
         self.name = name
         self.population = population
-        self.xCords = xCords
-        self.yCords = yCords
-
+        self.pos = pos
+        
 class Capital(Country):
-    def __init__(self, name, population, xCords, yCords,radiusOfPeople):
+    def __init__(self, name, population,  pos):
         self.name = name
         self.population = population
-        self.xCords = xCords
-        self.yCords = yCords
-        self.radiusOfPeople = radiusOfPeople
+        self.pos = pos
+
 
 class Industry(Country):
-    def __init__(self, name, workers, xCords, yCords,radiusOfPeople):
+    def __init__(self, name, workers, pos,radiusOfPeople):
         self.workers = workers
-        self.xCords = xCords
-        self.yCords = yCords
+        self.pos = pos
         self.name = name
         self.radiusOfPeople = radiusOfPeople
 
 class Radar(Country):
-    def __init__(self, name, workers, xCords, yCords, radiusOfAffect,radiusOfPeople):
+    def __init__(self, name, workers,  pos, radiusOfAffect,radiusOfPeople):
         self.workers = workers
-        self.xCords = xCords
-        self.yCords = yCords
+        self.pos = pos
         self.name = name
         self.radiusOfAffect = radiusOfAffect
         self.radiusOfPeople = radiusOfPeople
 
 class MissleDefenseSystem(Country):
-    def __init__(self, name, workers, xCords, yCords, radiusOfAffect,radiusOfPeople):
+    def __init__(self, name, workers, pos, radiusOfAffect,radiusOfPeople):
         self.workers = workers
-        self.xCords = xCords
-        self.yCords = yCords
+        self.pos = pos
         self.name = name
         self.radiusOfAffect = radiusOfAffect
         self.radiusOfPeople = radiusOfPeople
@@ -86,6 +81,10 @@ def set_cuba():
     for x in range(0, 4, 1):
         Xcords = 500
         Ycords = 500
+        pos = (Xcords, Ycords) #*pos is how you unpack this 
+        
+         # or use input to get the coordinates from the user
+
         # Xcords = int(input("\nset_cuba\nEnter X Cords For %s: " % Locations[x]))
         # while Xcords > 500:
         #     Xcords = int(input("X Cords Cannot be greater than 500, Enter X Cords Again: "))
@@ -93,29 +92,30 @@ def set_cuba():
         # while Ycords > 500:
         #     Ycords = int(input("Y Cords Cannot be greater than 500, Enter Y Cords Again: "))
         global cuba,havana,factory,radar,missleDefense
-        cuba = Country('cuba', 60000, 500, 275)
+        cuba = Country('cuba', 60000, pos)
         if Locations[x] == "Capital":
-            havana  = Capital('Havana', 60000, Xcords, Ycords,15)
+            havana = Capital('Havana', 60000, pos, 15)
         elif Locations[x] == "Industry":
-            factory = Industry("Bomb Factory", 5000, Xcords, Ycords,2)
+            factory = Industry("Bomb Factory", 5000, pos,2)
         elif Locations[x] == "Radar":
-            radar = Radar("Radar", 5000, Xcords, Ycords, 50,2)
+            radar = Radar("Radar", 5000,pos, 50,2)
         elif Locations[x] == "MissleDefense":
-            missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25,2)  
+            missleDefense = MissleDefenseSystem("MissleDefense", 2000, pos, 25,2)  
             display_info() 
 
 def set_america():
     def display_info():
         print("\ndisplay_america")
-        print("Country name:", america.name,"\nCountry population:", america.population,"\nCountry Xcords:", america.xCords,"\nCountry Ycords:", america.yCords)
-        print("\nCapital name:", washington.name,"\nCapital population:", washington.population,"\nCapital Xcords:", washington.xCords,"\nCapital Ycords:", washington.yCords)
-        print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory Xcords:", factory.xCords,"\nfactory Ycords:", factory.yCords)
-        print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar Xcords:", radar.xCords,"\nradar Ycords:", radar.yCords)
-        print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense Xcords:", missleDefense.xCords,"\nmissleDefense Ycords:", missleDefense.yCords)
+        print("Country name:", america.name,"\nCountry population:", america.population,"\nCountry pos:", america.pos)
+        print("\nCapital name:", washington.name,"\nCapital population:", washington.population,"\nCapital pos:", washington.pos)
+        print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory pos:", factory.pos)
+        print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar pos:", radar.pos)
+        print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense pos:",missleDefense.pos)
     for x in range(0, 4, 1):
-        
+    
         Xcords = 0
         Ycords = 0
+        pos = (Xcords,Ycords)
         # Xcords = int(input("\nset_set_america\nEnter X Cords For %s: " % Locations[x]))
         # while Xcords > 500:
         #     Xcords = int(input("X Cords Cannot be greater than 500, Enter X Cords Again: "))
@@ -124,15 +124,15 @@ def set_america():
         #     Ycords = int(input("Y Cords Cannot be greater than 500, Enter Y Cords Again: "))
         # Ycords = int(input("Y Cords Cannot be greater than 500, Enter Y Cords Again: "))
         global america,washington,factory,radar,missleDefense
-        america = Country('USA', 60000, 500, 275)
+        america = Country('USA', 60000, pos)
         if Locations[x] == "Capital":
-            washington = Capital('washington', 60000, Xcords, Ycords,15)
+            washington = Capital('washington', 60000, pos,15)
         elif Locations[x] == "Industry":
-            factory = Industry("Bomb Factory", 5000, Xcords, Ycords,2)
+            factory = Industry("Bomb Factory", 5000,pos,2)
         elif Locations[x] == "Radar":
-            radar = Radar("Radar", 5000, Xcords, Ycords, 50, 1)
+            radar = Radar("Radar", 5000,pos, 50, 1)
         elif Locations[x] == "MissleDefense":
-            missleDefense = MissleDefenseSystem("MissleDefense", 2000, Xcords, Ycords, 25, 2)  
+            missleDefense = MissleDefenseSystem("MissleDefense", 2000, pos, 25, 2)  
             display_info()
             
 def display_cuba(): 
@@ -171,7 +171,7 @@ def launch_Nuke(nuke, owner):
     yCords = int (input("enter Ycords"))
 
     nuke = projectile("Nuke", 5, (0,0), 1, 5, 0,owner,(xCords,yCords))
-    positions = [(0,0),(1150,2000), (2750,4000),(5150,4500),(6700,2000),(7850,30)]   
+    positions = [(0,0),(1150,2000), (2750,4000),(5150,4500),(xCords,yCords),(7850,30)]   
 
     for x in range(nuke.eta, nuke.totalMoves, 1): 
         currentPos = positions[x]
@@ -180,6 +180,7 @@ def launch_Nuke(nuke, owner):
         # player_Picker() # For the real game 
         nuke.eta = x + 1
         if nuke.eta == nuke.totalMoves:
+            check_Projectile_Collision(nuke,Radar)
             print("Nuke\nBoom!")
             # player_Picker() # For the real game 
             test_Player() # For testing purposes 
@@ -351,8 +352,14 @@ def test_Player(): # Remove Later
         move_Counter = move_Counter + 1       
         print("Test = false") 
 
+def check_Projectile_Collision(projectile, radar):
+    if (projectile.destCords == radar.pos):
+        print("Location {} was hit".format(radar.name))
+    else:                                                                  
+        print("Location {} was not hit".format(radar.name))   
+
 # is the   system of the game and will also be the games main loop 
-do = True # on and off switch for game loop
+do = False  # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program
@@ -361,3 +368,5 @@ while do == True:
     else: 
         player_Picker()
         print("Not Exiting\n")
+
+set_america()
