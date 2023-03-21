@@ -367,4 +367,6 @@ while do == True:
     else: 
         print("Test")
         player_Picker()
+        nuke.display_Nuke()
+
         print("Not Exiting\n")
