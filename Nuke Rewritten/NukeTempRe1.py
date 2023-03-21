@@ -1,4 +1,3 @@
-
 # 1/24/23 Made By Jibril 
 # expected outPut
 # https://en.wikipedia.org/wiki/Intercontinental_ballistic_missile#:~:text=Flight%20phases,-The%20following%20flight&text=reentry%2Fterminal%20phase%20(starting%20at,see%20also%20maneuverable%20reentry%20vehicle. 
@@ -23,17 +22,26 @@ Locations = ["Capital", "Industry","Radar", "MissleDefense"]
 country_picked = False
 player_Country = ""
 
-class projectile: # everything is mesured in Km unless stated otherwise
-  def __init__(self, name, totalMoves, currntPos,endPos, numberOfProjectile, blastRadius, eta, owner,id):
-    self.totalMoves = totalMoves 
-    self.numberOfProjectile = numberOfProjectile
-    self.currentPos = currntPos
-    self.endPos = endPos  
-    self.id = id
-    self.name = name 
-    self.blastRadius = blastRadius 
-    self.eta = eta
-    self.owner = owner
+class projectile:
+    def __init__(self, name,totalMoves,currntPos,endPos,eta,owner ):
+        self.name = name
+        self.totalMoves = totalMoves
+        self.currntPos = currntPos 
+        self.endPos = endPos 
+        self.eta = eta
+        self.owner = owner
+
+    def display_Nuke(self):
+        print("\ndisplay_Nuke")
+        print("TotalMove = %d" % nuke.totalMoves)       
+        print("Name = " + nuke.name)
+        print("Current Move = %d" % (nuke.eta ))
+        print("Pos = (%d,%d,%d)" % (nuke.currntPos))
+        print("End Pos = (%d,%d,%d)" % (nuke.endPos))
+        print("Owner = " + nuke.owner)
+        print("\n")
+
+nuke_list = []
 
 class Country:
     def __init__(self, name, population, location ):
@@ -70,6 +78,9 @@ class MissleDefenseSystem(Country):
         self.name = name
         self.radiusOfAffect = radiusOfAffect
         self.radiusOfPeople = radiusOfPeople
+
+
+
 
 def set_cuba():
     def display_info():
@@ -137,7 +148,7 @@ def display_cuba():
     print("\nCapital name:", havana.name,"\nCapital population:", havana.population,"\nCapital location:", havana.location)
     print("\nFactory name:", factory.name,"\nfactory workers:", factory.workers,"\nfactory location:", factory.location)
     print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar location:", radar.location)
-    print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers, "\nlocation:", radar.location)
+    print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers, "location:", radar.location)
 
 def display_america(): 
     print("\ndisplay_america")
@@ -147,8 +158,8 @@ def display_america():
     print("\nRadar name:", radar.name,"\nradar workers:", radar.workers,"\nradar location:", radar.location)
     print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense location:", missleDefense.location)
 
-def parametricEqu(startPos, endPos, angle):
-    x0, y0, z0 = startPos
+def parametricEqu(currntPos, endPos, angle):
+    x0, y0, z0 = currntPos
     x1, y1, z1 = endPos
     # calculates the initial velocity and angle(Radiens) Dont feel like converting to degrees 
     vx = math.sqrt((x1 - x0) * 9.81 / (2 * math.sin(math.pi / angle))) 
@@ -176,41 +187,24 @@ def parametricEqu(startPos, endPos, angle):
 
     return traj_coords
 
-def launch_Nuke(nuke, owner,startPos, endPos,id):
+def launch_Nuke(owner, currntPos, endPos, angle):
+  
     print("\nLaunched Nuke")
+    nuke = projectile("Nuke", 5, (currntPos),(endPos), 1, 5, 0,owner)
+    nuke_list.append(nuke)
 
-    def display_info(): 
-        print("\nTotalMove = %d" % nuke.totalMoves)       
-        print("Name = " + nuke.name)
-        print("Current Move = %d" % (nuke.eta ))
-        print("Total Projectiles = %d" %  (nuke.numberOfProjectile) )  
-        print("The Blast Raduis = %d" % (nuke.blastRadius))
-        print("Pos = (%d,%d,%d)" % (nuke.currentPos))
-        print("endPos = (%d,%d,%d)" % (nuke.endPos))
-        print("Owner = " + nuke.owner)
-        print("id = " + nuke.id)
-        print("\n")
-
-    print("\nLaunched Nuke")
-    angle = 2
-    nuke = projectile("Nuke", 5, (0,0,0),(endPos), 1, 5, 0,owner,id)
-    positions = parametricEqu(startPos,endPos,angle)
-    for x in range(0,5,1):
+    positions = parametricEqu(currntPos, endPos, angle)
+    for x in range(0, 5, 1):
         print(positions[x])
-
-    for x in range(nuke.eta, nuke.totalMoves, 1): 
+    
+    for x in range(nuke.eta, nuke.totalMoves):
         nuke.currentPos = positions[x]
-        display_info()    
-        # test_Player() # For testing purposes 
-        player_Picker() # For the real game 
         nuke.eta = x + 1
         if nuke.eta == nuke.totalMoves:
             print("Nuke\nBoom!")       
             check_Projectile_Collision(nuke, radar)
-            player_Picker() # For the real game 
-           #test_Player() # For testing purposes 
-            break 
-
+            break
+    
 def launch_ICBM(ICBM, owner):
     def display_info(): 
           print("\nTotalMove = %d" % ICBM.totalMoves)       
@@ -252,7 +246,6 @@ def check_Projectile_Collision(nuke, radar ):
         print("Location {} was hit".format(radar.name))
     else:                                                                  
         print("Location {} was not hit".format(radar.name))       
-
 
 def coin_toss(): # Ran First Starts the Game, and is a 50 50 shot wether playerOne or playerTwo will be ran 
     coin = (random.randint(0,1))
@@ -327,28 +320,23 @@ def country_Picker(): # Gives the player a choice on what country, player is sel
                 player_Country = "america" 
         country_picked = True
 
-def player_One_Choice():
+def player_One_Choice(): # choices playerOne can make 
     owner = "player_One"
-    global move_Counter
+    global move_Counter , nuke 
     exit_test = int(input("\nplayer_One_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
-        move_Counter = move_Counter + 1
-        id = len(nukes) + 1 # generate a new unique ID for the projectile
-        nuke = projectile("Nuke", 5, (0,0,0), (5000,0,5000), 1, 5, 0, owner, id)
-        nukes.append(nuke) 
-        launch_Nuke(nukes[-1], owner, (0,0,0), (5000,0,5000) , id)  # launch the last element in the nukes list
-    
+        move_Counter = move_Counter + 1       
+        nuke = projectile("Nuke", 5, (0, 0, 0), (5000, 0, 5000), 1, owner)
+        nuke_list.append(nuke)
     elif exit_test == 2:
-        move_Counter = move_Counter + 1
-        proj_id = len(ICBM) + 1 # generate a new unique ID for the projectile
-        ICBM[proj_id] = projectile("ICBM", 5, (0,0), 1, 5, 0, owner, proj_id)
-        launch_ICBM(ICBM[proj_id], owner)
+        move_Counter = move_Counter + 1       
+        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner))
+        launch_ICBM(ICBM[-1],owner)
     elif exit_test == 3: 
         player_One_Stats() 
     else:
         print("player_One_Choice\nMove Was skipped") # Remove Later
-        move_Counter = move_Counter + 1
-    
+        move_Counter = move_Counter + 1     
 
 def player_Two_Choice(): # choices playerTwo can make 
     owner = "player_Two"
@@ -356,8 +344,8 @@ def player_Two_Choice(): # choices playerTwo can make
     exit_test = int(input("\nplayer_Two_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
         move_Counter = move_Counter + 1       
-        nukes.append(projectile("Nuke", 5, (0,0,0),(5000,0,5000),1, 5, 0,owner))
-        launch_Nuke(nukes[-1],owner,(0,0,0),(5000,0,5000),2.09)
+        launch_Nuke("player_Two", (0, 0, 0), (5000, 0, 5000), 2.09)
+        launch_Nuke(nuke[-1],owner)
     elif exit_test == 2:
         move_Counter = move_Counter + 1       
         ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner))
@@ -368,8 +356,8 @@ def player_Two_Choice(): # choices playerTwo can make
         print("player_Two_Choice\nMove Was skipped") # Remove Later
         move_Counter = move_Counter + 1      
 
+
 # is the move system of the game and will also be the games main loop 
-nukes = []
 do = True # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
@@ -377,5 +365,6 @@ while do == True:
         print("\nExiting\n")
         break; 
     else: 
+        print("Test")
         player_Picker()
         print("Not Exiting\n")

@@ -324,7 +324,7 @@ def player_Two_Choice(): # choices playerTwo can make
 
 
 # is the move system of the game and will also be the games main loop 
-do = False # on and off switch for game loop
+do = True # on and off switch for game loop
 while do == True:
     if player_Picker() == False:
         #Instead of Breaking Send to Another Function Or Break To Close program

@@ -17,7 +17,8 @@ import random
 import math
 from math import acos, sqrt
 
-nukes = []
+playerOneNukes = []
+playerTwoNukes = []
 ICBM =  [] 
 Locations = ["Capital", "Industry","Radar", "MissleDefense"]
 country_picked = False
@@ -148,6 +149,8 @@ def display_america():
     print("\nmissleDefense name:", missleDefense.name,"\nmissleDefense workers:", missleDefense.workers,"\nmissleDefense location:", missleDefense.location)
 
 def parametricEqu(startPos, endPos, angle):
+
+
     x0, y0, z0 = startPos
     x1, y1, z1 = endPos
     # calculates the initial velocity and angle(Radiens) Dont feel like converting to degrees 
@@ -176,12 +179,12 @@ def parametricEqu(startPos, endPos, angle):
 
     return traj_coords
 
-def launch_Nuke(nuke, owner,startPos, endPos,angle):
-    def display_info(): 
-        print("\nTotalMove = %d" % nuke.totalMoves)       
+def launch_Nuke(nukes, owner, startPos, endPos, angle):
+    def display_info(nuke):
+        print("\nTotalMove = %d" % nuke.totalMoves)
         print("Name = " + nuke.name)
-        print("Current Move = %d" % (nuke.eta ))
-        print("Total Projectiles = %d" %  (nuke.numberOfProjectile) )  
+        print("Current Move = %d" % (nuke.eta))
+        print("Total Projectiles = %d" % (nuke.numberOfProjectile))
         print("The Blast Raduis = %d" % (nuke.blastRadius))
         print("Pos = (%d,%d,%d)" % (nuke.currentPos))
         print("endPos = (%d,%d,%d)" % (nuke.endPos))
@@ -189,25 +192,29 @@ def launch_Nuke(nuke, owner,startPos, endPos,angle):
         print("\n")
 
     print("\nLaunched Nuke")
-    
-    nuke = projectile("Nuke", 5, (0,0,0),(endPos), 1, 5, 0,owner)
-    positions = parametricEqu(startPos, endPos,angle)
-    for x in range(0,5,1):
+
+    nuke = projectile("Nuke", 5, (0, 0, 0), (endPos), 1, 5, 0, owner)
+    positions = parametricEqu(startPos, endPos, angle)
+
+    for x in range(0, 5, 1):
         print(positions[x])
 
-    for x in range(nuke.eta, nuke.totalMoves, 1): 
-        nuke.currentPos = positions[x]
-        display_info()    
-        # test_Player() # For testing purposes 
-        player_Picker() # For the real game 
-        nuke.eta = x + 1
-        if nuke.eta == nuke.totalMoves:
-            print("Nuke\nBoom!")       
-            check_Projectile_Collision(nuke, radar)
-            player_Picker() # For the real game 
-           #test_Player() # For testing purposes 
-            break 
-
+    nukes.append(nuke)
+    for x in range(nuke.eta, nuke.totalMoves, 1):
+        for nuke in nukes:
+            nuke.currentPos = positions[x]
+            display_info(nuke)
+            # test_Player() # For testing purposes
+            player_Picker()  # For the real game
+            nuke.eta = x + 1
+            if nuke.eta == nuke.totalMoves:
+                print("Nuke\nBoom!")
+                check_Projectile_Collision(nuke, radar)
+                player_Picker()  # For the real game
+                # test_Player() # For testing purposes
+                nukes.remove(nuke)
+                break
+ 
 def launch_ICBM(ICBM, owner):
     def display_info(): 
           print("\nTotalMove = %d" % ICBM.totalMoves)       
@@ -324,23 +331,22 @@ def country_Picker(): # Gives the player a choice on what country, player is sel
                 player_Country = "america" 
         country_picked = True
 
-def player_One_Choice(): # choices playerOne can make 
+def player_One_Choice():  # choices playerOne can make
     owner = "player_One"
-    global move_Counter 
+    global move_Counter
     exit_test = int(input("\nplayer_One_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
-        move_Counter = move_Counter + 1       
-        nukes.append(projectile("Nuke", 5, (0,0,0),(5000,0,5000),1, 5, 0,owner))
-        launch_Nuke(nukes[-1],owner,(0,0,0),(5000,0,5000),2.09)
+        move_Counter = move_Counter + 1
+        launch_Nuke(playerOneNukes, owner, (0, 0, 0), (5000, 0, 5000), 2.09)
     elif exit_test == 2:
-        move_Counter = move_Counter + 1       
-        ICBM.append(projectile("ICBM", 5, (0,0), 1, 5, 0,owner))
-        launch_ICBM(ICBM[-1],owner)
-    elif exit_test == 3: 
-        player_One_Stats() 
+        move_Counter = move_Counter + 1
+        ICBM.append(projectile("ICBM", 5, (0, 0), 1, 5, 0, owner))
+        launch_ICBM(ICBM[-1], owner)
+    elif exit_test == 3:
+        player_One_Stats()
     else:
-        print("player_One_Choice\nMove Was skipped") # Remove Later
-        move_Counter = move_Counter + 1     
+        print("player_One_Choice\nMove Was skipped")  # Remove Later
+        move_Counter = move_Counter + 1   
 
 def player_Two_Choice(): # choices playerTwo can make 
     owner = "player_Two"
