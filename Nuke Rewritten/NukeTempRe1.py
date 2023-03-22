@@ -187,50 +187,23 @@ def parametricEqu(currntPos, endPos, angle):
 
     return traj_coords
 
-def launch_Nuke(owner, currntPos, endPos, angle):
-  
+def launch_Nuke(nuke,eta,totalmoves, currntPos, endPos, angle):
     print("\nLaunched Nuke")
-    nuke = projectile("Nuke", 5, (currntPos),(endPos), 1, 5, 0,owner)
-    nuke_list.append(nuke)
-
     positions = parametricEqu(currntPos, endPos, angle)
     for x in range(0, 5, 1):
         print(positions[x])
-    
-    for x in range(nuke.eta, nuke.totalMoves):
-        nuke.currentPos = positions[x]
-        nuke.eta = x + 1
-        if nuke.eta == nuke.totalMoves:
-            print("Nuke\nBoom!")       
-            check_Projectile_Collision(nuke, radar)
-            break
-    
-def launch_ICBM(ICBM, owner):
-    def display_info(): 
-          print("\nTotalMove = %d" % ICBM.totalMoves)       
-          print("Name = " + ICBM.name)
-          print("Current Move = %d" % (ICBM.eta ))
-          print("Total Projectiles = %d" %  (ICBM.numberOfProjectile) )  
-          print("The Blast Raduis = %d" % (ICBM.blastRadius))
-          print("Pos = (%d,%d)" % (currentPos))
-          print("Owner = " + ICBM.owner)
-          print("\n")
-    print("\nLaunched ICBM")
-    ICBM = projectile("ICBM", 5, (0,0), 1, 0.5, 0,owner)
-    positions = [(0,0),(2500, 850), (4000,1000),(5570,800),(7850,0)]   
 
-    for x in (range(ICBM.eta, ICBM.totalMoves, 1)): 
-        currentPos = positions[x]
-        display_info()    
-        # test_Player() # For testing purposes 
-        player_Picker() # For the real game 
-        ICBM.eta = x + 1
-        if ICBM.eta == ICBM.totalMoves:
-            print("ICBM\nBoom!")
-            player_Picker() # For the real game 
-        #test_Player() # For testing purposes 
-            break
-
+    nuke_list.append(nuke)
+    for x in range(nuke.eta, nuke.totalMoves, 1):
+        for nuke in nuke_list:
+            nuke.currentPos = positions[x]
+            nuke.eta = nuke.eta + 1
+            player_Picker()  # For the real game
+            if nuke.eta == nuke.totalMoves:
+                print("Nuke\nBoom!")
+                check_Projectile_Collision(nuke, radar)
+                player_Picker()  # For the real game
+             
 def intersection_area(d,r1,r2): # finds the area of the intersection of two circles, d = distance between center1 -> r1 and center2 -> r2 = r1 = raduis1 r2 = raduis2   
     d1 = (r1**2 - r2**2 + d**2) / (2 * d)
     d2 = d - d1
@@ -242,7 +215,7 @@ def circle_area(r): # finds the area of a circle,  r = raduis
     return area 
 
 def check_Projectile_Collision(nuke, radar ):
-    if (nuke.currentPos >= radar.location):
+    if (nuke.currntPos  >= radar.location):
         print("Location {} was hit".format(radar.name))
     else:                                                                  
         print("Location {} was not hit".format(radar.name))       
@@ -322,11 +295,17 @@ def country_Picker(): # Gives the player a choice on what country, player is sel
 
 def player_One_Choice(): # choices playerOne can make 
     owner = "player_One"
+    name = "Nuke"
+    totalMoves = 5
+    currentPos = 0,0,0
+    endPos = 0,0,0
+    eta = 0 
+
     global move_Counter , nuke 
     exit_test = int(input("\nplayer_One_Choice\nEnter 0 to skip\nenter 1 to launch nuke\nenter 2 to launch ICBM\nEnter 3 to view country info\n Enter Option: "))
     if exit_test == 1:
-        move_Counter = move_Counter + 1       
-        nuke = projectile("Nuke", 5, (0, 0, 0), (5000, 0, 5000), 1, owner)
+        move_Counter = move_Counter + 1
+        nuke = projectile(name, totalMoves, currentPos, endPos, eta, owner)
         nuke_list.append(nuke)
     elif exit_test == 2:
         move_Counter = move_Counter + 1       
@@ -336,6 +315,7 @@ def player_One_Choice(): # choices playerOne can make
         player_One_Stats() 
     else:
         print("player_One_Choice\nMove Was skipped") # Remove Later
+        nuke.display_Nuke()
         move_Counter = move_Counter + 1     
 
 def player_Two_Choice(): # choices playerTwo can make 
@@ -368,5 +348,4 @@ while do == True:
         print("Test")
         player_Picker()
         nuke.display_Nuke()
-
         print("Not Exiting\n")
