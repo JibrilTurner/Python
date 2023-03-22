@@ -11,7 +11,7 @@ class projectile:
         print("\ndisplay_Nuke")
         print("TotalMove = %d" % nuke.totalMoves)       
         print("Name = " + nuke.name)
-        print("Current Move = %d" % (nuke.eta ))
+        print("Eta = %d" % (nuke.eta ))
         print("Pos = (%d,%d,%d)" % (nuke.currntPos))
         print("End Pos = (%d,%d,%d)" % (nuke.endPos))
         print("Owner = " + nuke.owner)
@@ -30,7 +30,7 @@ def ProgramBody():
             totalMoves = 5 
             currntPos = 0,0,0
             EndPos = 500,0,500
-            eta = 5 
+            eta = 0
             owner = "playerone"
             nuke = projectile(name,totalMoves,currntPos,EndPos,eta,owner)
             nuke_list.append(nuke)
@@ -38,6 +38,7 @@ def ProgramBody():
         elif choice == 'p':
             print("List of nukes:")
             for nuke in nuke_list:
+                nuke.eta = nuke.eta + 1
                 nuke.display_Nuke()
         else:
             print("Invalid choice. Please try again.")
