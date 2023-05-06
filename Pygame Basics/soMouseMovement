@@ -1,0 +1,33 @@
+# https://stackoverflow.com/questions/55377885/how-to-overlapping-of-gray-dots-colors-in-pygame
+import pygame
+
+class Dot:
+    def __init__(self, pos=None):
+        self.image = pygame.Surface((50, 50))
+        self.image.set_colorkey((2, 4, 6))
+        self.image.fill((2, 4, 6))
+        pygame.draw.circle(self.image, (50, 50, 50), (25, 25), 25, 0)
+        self.rect = self.image.get_rect(center=pos or (0, 0))
+
+def main():
+    screen = pygame.display.set_mode((400, 400))
+
+    dot = Dot()
+    dots = [dot, *[Dot(pos) for pos in ((50, 50), (100, 200), (120, 230), (200, 300), (300, 150))]]
+
+    clock = pygame.time.Clock()    
+    while True:
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                return
+
+        dot.rect.center = pygame.mouse.get_pos()
+
+        screen.fill(pygame.Color('black'))
+        for d in dots:
+            screen.blit(d.image, d.rect, special_flags=pygame.BLEND_ADD)
+        pygame.display.flip()
+        clock.tick(60)
+
+if __name__ == '__main__':
+    main()
