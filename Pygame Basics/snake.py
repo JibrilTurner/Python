@@ -3,35 +3,40 @@ import time
 import random
 pygame.init()
 
+
 # Set up the display
-display_width = 800
-display_height = 800
+display_width = 1920
+display_height = 1080
 display = pygame.display.set_mode((display_width, display_height))
  
-class Snake:
+class parentSnake:
     def __init__(self, x, y, cubeSize, speed):
         self.x = x
         self.y = y
         self.cubeSize = cubeSize
         self.speed = speed
-        self.x_change = 0
-        self.y_change = 0
+        self.dx = 0
+        self.dy = 0
         self.length = 1  # Initialize the length as 1
         self.body = [(x, y)]  # Initialize with a single segment
 
-class food:
+class parentFood:
     def __init__(self, x, y, cubeSize,amieaten):
         self.x = x
         self.y = y
         self.cubeSize = cubeSize
         self.amieaten = False
 
+def getNewCords():
+    childFood.x = random.randint(0, (display_width - childFood.cubeSize) // cubeSize) * cubeSize
+    childFood.y = random.randint(0, (display_height - childFood.cubeSize) // cubeSize) * cubeSize
 
-# Snake properties
+
+# Define the snake properties
 cubeSize = 20
-snake_speed = 15
+snake_speed = 20
 
-# 
+# Define the clock
 clock = pygame.time.Clock()
 
 # Define colors
@@ -39,8 +44,8 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 # Initialize the snake
-snake_obj = Snake(display_width // 2, display_height // 2, cubeSize, snake_speed)
-food_obj = food(200,200,cubeSize,False)
+childSnake = parentSnake(display_width // 2, display_height // 2, cubeSize, snake_speed)
+childFood = parentFood(200,200,cubeSize,False)
 
 # Main game loop
 game_over = False
@@ -51,62 +56,85 @@ while not game_over:
 
         # Check for key presses
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w and snake_obj.y_change != snake_obj.cubeSize:
-                snake_obj.x_change = 0
-                snake_obj.y_change = -snake_obj.cubeSize
-            elif event.key == pygame.K_s and snake_obj.y_change != -snake_obj.cubeSize:
-                snake_obj.x_change = 0
-                snake_obj.y_change = snake_obj.cubeSize
-            elif event.key == pygame.K_a and snake_obj.x_change != snake_obj.cubeSize:
-                snake_obj.x_change = -snake_obj.cubeSize
-                snake_obj.y_change = 0
-            elif event.key == pygame.K_d and snake_obj.x_change != -snake_obj.cubeSize:
-                snake_obj.x_change = snake_obj.cubeSize
-                snake_obj.y_change = 0
+            if event.key == pygame.K_w and childSnake.dy != childSnake.cubeSize:
+                childSnake.dx = 0
+                childSnake.dy = -childSnake.cubeSize
+            elif event.key == pygame.K_s and childSnake.dy != -childSnake.cubeSize:
+                childSnake.dx = 0
+                childSnake.dy = childSnake.cubeSize
+            elif event.key == pygame.K_a and childSnake.dx != childSnake.cubeSize:
+                childSnake.dx = -childSnake.cubeSize
+                childSnake.dy = 0
+            elif event.key == pygame.K_d and childSnake.dx != -childSnake.cubeSize:
+                childSnake.dx = childSnake.cubeSize
+                childSnake.dy = 0
 
     # Update snake's position
-    snake_obj.x += snake_obj.x_change
-    snake_obj.y += snake_obj.y_change
+    childSnake.x += childSnake.dx
+    childSnake.y += childSnake.dy
 
     # Update the snake's body
-    snake_obj.body.append((snake_obj.x, snake_obj.y))  # Add the new head segment
+    childSnake.body.append((childSnake.x, childSnake.y))  # Add the new head segment
 
-    if len(snake_obj.body) > snake_obj.length:
-        del snake_obj.body[0]  # Remove the tail segment
+    # If the snake ate food, don't remove the tail segment
+    if len(childSnake.body) > childSnake.length:
+        del childSnake.body[0]  
+    # Remove the tail segment
+
     # Clear the screen
     display.fill(black)
 
     # Draw the snake
-    for segment in snake_obj.body:
-        pygame.draw.rect(display, white, [segment[0], segment[1], snake_obj.cubeSize, snake_obj.cubeSize])
-    
-    def getNewCords():
-        food_obj.x = random.randint(0, (display_width - food_obj.cubeSize) // 20) * 20
-        food_obj.y = random.randint(0, (display_height - food_obj.cubeSize) // 20) * 20
+ 
+    for segment in childSnake.body:
+        pygame.draw.rect(display, white, [segment[0], segment[1], childSnake.cubeSize, childSnake.cubeSize])
 
-    # Check collision with food
-    if snake_obj.x == food_obj.x and snake_obj.y == food_obj.y:
-        snake_obj.length += 1  # Increment the length by one
-        getNewCords()  # Generate new coordinates for the food
+    # Draw the childFood
+  
+    # teleport snake to other side of screen 
+    if childSnake.x > display_width:
+       childSnake.x = 0
+    if childSnake.x < 0:
+      childSnake.x = display_width
+    if childSnake.y > display_height:
+       childSnake.y = 0
+    if childSnake.y < 0:
+     childSnake.y = display_height
 
         
-    # Draw the food if not eaten
-    if not food_obj.amieaten:
-        pygame.draw.rect(display, white, [food_obj.x, food_obj.y, food_obj.cubeSize, food_obj.cubeSize])
+    # check snake collison 
+    for segment in childSnake.body[:-1]: 
+        if segment == childSnake.body[-1]:
+            game_over = True
+            
+    # Check collision with parentFood
+    if childSnake.x == childFood.x and childSnake.y == childFood.y:
+        childSnake.length += 1  # Increment the length by one
+        getNewCords()  # Generate new coordinates for the parentFood
+        
+    # display score 
+    font = pygame.font.SysFont("ariral", 72)
+    text = font.render(str(childSnake.length), True, white)
+    display.blit(text, (0, 0))
 
-    # If food is eaten, generate new coordinates and draw the food
-    if food_obj.amieaten:
+        
+    # Draw the parentFood if not eaten
+    if not childFood.amieaten:
+        pygame.draw.rect(display, white, [childFood.x, childFood.y, childFood.cubeSize, childFood.cubeSize])
+
+    # If parentFood is eaten, generate new coordinates and draw the parentFood
+    if childFood.amieaten:
         getNewCords()
         x = 1 
         x = x + 1
-        pygame.draw.rect(display, white, [segment[0], segment[x], snake_obj.cubeSize, snake_obj.cubeSize])
-        food_obj.amieaten = False
+        pygame.draw.rect(display, white, [segment[0], segment[x], childSnake.cubeSize, childSnake.cubeSize])
+        childFood.amieaten = False
 
     # Update the display
     pygame.display.update()
 
     # Set the frame rate
-    clock.tick(snake_obj.speed)
+    clock.tick(childSnake.speed)
 
 # Quit the game
 pygame.quit()
