@@ -5,8 +5,8 @@ pygame.init()
 
 
 # Set up the display
-display_width = 1920
-display_height = 1080
+display_width = 800
+display_height = 800
 display = pygame.display.set_mode((display_width, display_height))
  
 class parentSnake:
@@ -27,11 +27,27 @@ class parentFood:
         self.cubeSize = cubeSize
         self.amieaten = False
 
+class parentTeleportFood: 
+    def __init__(self, x1, y1, x2 ,y2, cubeSize,amieaten):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.cubeSize = cubeSize
+        self.amieaten = False
+
+
 def getNewCords():
-    childFood.x = random.randint(0, (display_width - childFood.cubeSize) // cubeSize) * cubeSize
-    childFood.y = random.randint(0, (display_height - childFood.cubeSize) // cubeSize) * cubeSize
+    childFood.x = random.randint(0, (display_width - 400 -childFood.cubeSize) // cubeSize) * cubeSize
+    childFood.y = random.randint(0, (display_height - 400 - childFood.cubeSize) // cubeSize) * cubeSize
 
-
+def getNewCordsTeleport():
+    #genrate random cords for teleport food
+    childTeleportFood.x1 = random.randint(0, (display_width - 400 -childTeleportFood.cubeSize) // cubeSize) * cubeSize
+    childTeleportFood.y1 = random.randint(0, (display_height - 400 - childTeleportFood.cubeSize) // cubeSize) * cubeSize
+    childTeleportFood.x2 = random.randint(0, (display_width - 400 -childTeleportFood.cubeSize) // cubeSize) * cubeSize
+    childTeleportFood.y2 = random.randint(0, (display_height - 400 - childTeleportFood.cubeSize) // cubeSize) * cubeSize
+    
 # Define the snake properties
 cubeSize = 20
 snake_speed = 20
@@ -46,7 +62,7 @@ black = (0, 0, 0)
 # Initialize the snake
 childSnake = parentSnake(display_width // 2, display_height // 2, cubeSize, snake_speed)
 childFood = parentFood(200,200,cubeSize,False)
-
+childTeleportFood = parentTeleportFood(200,200,400,400,cubeSize,False)
 # Main game loop
 game_over = False
 while not game_over:
@@ -106,7 +122,14 @@ while not game_over:
     for segment in childSnake.body[:-1]: 
         if segment == childSnake.body[-1]:
             game_over = True
-            
+    
+    # check collision with parentTeleportFood
+    if childSnake.x == childTeleportFood.x1 and childSnake.y == childTeleportFood.y1:
+        childTeleportFood.amieaten = True
+        getNewCordsTeleport()
+    if childSnake.x == childTeleportFood.x2 and childSnake.y == childTeleportFood.y2:
+        childTeleportFood.amieaten = True
+        getNewCordsTeleport()
     # Check collision with parentFood
     if childSnake.x == childFood.x and childSnake.y == childFood.y:
         childSnake.length += 1  # Increment the length by one
@@ -122,6 +145,13 @@ while not game_over:
     if not childFood.amieaten:
         pygame.draw.rect(display, white, [childFood.x, childFood.y, childFood.cubeSize, childFood.cubeSize])
 
+    # draw the parentTeleportFood if not eaten
+    if not childTeleportFood.amieaten:
+        pygame.draw.rect(display, 'red', [childTeleportFood.x1, childTeleportFood.y1, childTeleportFood.cubeSize, childTeleportFood.cubeSize])
+        pygame.draw.rect(display, 'blue', [childTeleportFood.x2, childTeleportFood.y2, childTeleportFood.cubeSize, childTeleportFood.cubeSize])
+
+    
+
     # If parentFood is eaten, generate new coordinates and draw the parentFood
     if childFood.amieaten:
         getNewCords()
@@ -129,6 +159,26 @@ while not game_over:
         x = x + 1
         pygame.draw.rect(display, white, [segment[0], segment[x], childSnake.cubeSize, childSnake.cubeSize])
         childFood.amieaten = False
+
+
+
+    # If parentTeleportFood is eaten, telport snake to other parentTeleportFood work with both cubes
+    if childTeleportFood.amieaten:
+        childSnake.x = childTeleportFood.x2
+        childSnake.y = childTeleportFood.y2
+        childTeleportFood.amieaten = False
+    
+    # if parentTeleportFood is eaten, generate new coordinates and draw the parentTeleportFood
+    if childTeleportFood.amieaten == True:
+        getNewCords()
+        x = 1 
+        x = x + 1
+        pygame.draw.rect(display, 'red', [segment[0], segment[x], childSnake.cubeSize, childSnake.cubeSize])
+        childTeleportFood.amieaten = False
+
+
+    
+    
 
     # Update the display
     pygame.display.update()
