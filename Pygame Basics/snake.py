@@ -9,6 +9,9 @@ display_width = 800
 display_height = 800
 display = pygame.display.set_mode((display_width, display_height))
  
+ # Define the snake properties
+cubeSize = 20
+snake_speed = 20
 class parentSnake:
     def __init__(self, x, y, cubeSize, speed):
         self.x = x
@@ -17,9 +20,22 @@ class parentSnake:
         self.speed = speed
         self.dx = 0
         self.dy = 0
-        self.length = 1  # Initialize the length as 1
-        self.body = [(x, y)]  # Initialize with a single segment
+        self.length = 1
+        self.body = [(x, y)]
 
+    def handle_key_event(self, event):
+        if event.key == pygame.K_w and self.dy != self.cubeSize:
+            self.dx = 0
+            self.dy = -self.cubeSize
+        elif event.key == pygame.K_s and self.dy != -self.cubeSize:
+            self.dx = 0
+            self.dy = self.cubeSize
+        elif event.key == pygame.K_a and self.dx != self.cubeSize:
+            self.dx = -self.cubeSize
+            self.dy = 0
+        elif event.key == pygame.K_d and self.dx != -self.cubeSize:
+            self.dx = self.cubeSize
+            self.dy = 0
 class parentFood:
     def __init__(self, x, y, cubeSize,amieaten):
         self.x = x
@@ -36,6 +52,14 @@ class parentTeleportFood:
         self.cubeSize = cubeSize
         self.amieaten = False
 
+class lives:
+    def __init__(self, lives, x, y):
+        self.lives = lives
+        self.cubeSize = cubeSize
+        self.x = x
+        self.y = y
+
+
 
 def getNewCords():
     childFood.x = random.randint(0, (display_width - 400 -childFood.cubeSize) // cubeSize) * cubeSize
@@ -47,10 +71,23 @@ def getNewCordsTeleport():
     childTeleportFood.y1 = random.randint(0, (display_height - 400 - childTeleportFood.cubeSize) // cubeSize) * cubeSize
     childTeleportFood.x2 = random.randint(0, (display_width - 400 -childTeleportFood.cubeSize) // cubeSize) * cubeSize
     childTeleportFood.y2 = random.randint(0, (display_height - 400 - childTeleportFood.cubeSize) // cubeSize) * cubeSize
-    
-# Define the snake properties
-cubeSize = 20
-snake_speed = 20
+
+# Initialize lives
+lives = 3
+
+def resetGame():  # Decrements lives by one and resets snake
+    global lives
+    lives -= 1
+    childSnake.x = display_width // 2
+    childSnake.y = display_height // 2
+    childSnake.dx = 0
+    childSnake.dy = 0
+    childSnake.length = 1
+    childSnake.body = [(childSnake.x, childSnake.y)]
+    time.sleep(.25)  # Pause for 1 second
+
+
+
 
 # Define the clock
 clock = pygame.time.Clock()
@@ -59,11 +96,15 @@ clock = pygame.time.Clock()
 white = (255, 255, 255)
 black = (0, 0, 0)
 
+
+
 # Initialize the snake
 childSnake = parentSnake(display_width // 2, display_height // 2, cubeSize, snake_speed)
 childFood = parentFood(200,200,cubeSize,False)
 childTeleportFood = parentTeleportFood(200,200,400,400,cubeSize,False)
-# Main game loop
+
+
+
 game_over = False
 while not game_over:
     for event in pygame.event.get():
@@ -107,22 +148,17 @@ while not game_over:
 
     # Draw the childFood
   
-    # teleport snake to other side of screen 
-    if childSnake.x > display_width:
-       childSnake.x = 0
-    if childSnake.x < 0:
-      childSnake.x = display_width
-    if childSnake.y > display_height:
-       childSnake.y = 0
-    if childSnake.y < 0:
-     childSnake.y = display_height
-
+    # if snake gits the wall game over
+    if childSnake.x >= display_width  or childSnake.x < 0 or childSnake.y >= display_height  or childSnake.y < 0:
+        resetGame()
+    else:
+        pass                
         
     # check snake collison 
     for segment in childSnake.body[:-1]: 
         if segment == childSnake.body[-1]:
-            game_over = True
-    
+            resetGame()
+
     # check collision with parentTeleportFood
     if childSnake.x == childTeleportFood.x1 and childSnake.y == childTeleportFood.y1:
         childTeleportFood.amieaten = True
@@ -145,12 +181,26 @@ while not game_over:
     if not childFood.amieaten:
         pygame.draw.rect(display, white, [childFood.x, childFood.y, childFood.cubeSize, childFood.cubeSize])
 
+    # initialize live cubes on upper left corner remove one life(cube) snake dies
+    if lives == 3:
+        pygame.draw.rect(display, white, [740, 0, childSnake.cubeSize, childSnake.cubeSize])
+        pygame.draw.rect(display, white, [710, 0, childSnake.cubeSize, childSnake.cubeSize])
+        pygame.draw.rect(display, white, [680, 0, childSnake.cubeSize, childSnake.cubeSize])
+    if lives == 2:
+        pygame.draw.rect(display, white, [710, 0, childSnake.cubeSize, childSnake.cubeSize])
+        pygame.draw.rect(display, white, [680, 0, childSnake.cubeSize, childSnake.cubeSize])
+    if lives == 1:
+        pygame.draw.rect(display, white, [680, 0, childSnake.cubeSize, childSnake.cubeSize])
+
+
     # draw the parentTeleportFood if not eaten
     if not childTeleportFood.amieaten:
         pygame.draw.rect(display, 'red', [childTeleportFood.x1, childTeleportFood.y1, childTeleportFood.cubeSize, childTeleportFood.cubeSize])
         pygame.draw.rect(display, 'blue', [childTeleportFood.x2, childTeleportFood.y2, childTeleportFood.cubeSize, childTeleportFood.cubeSize])
-
     
+    # check if life equals 0 if so game over
+    if lives == 0:
+        game_over = True    
 
     # If parentFood is eaten, generate new coordinates and draw the parentFood
     if childFood.amieaten:
@@ -170,10 +220,10 @@ while not game_over:
     
     # if parentTeleportFood is eaten, generate new coordinates and draw the parentTeleportFood
     if childTeleportFood.amieaten == True:
-        getNewCords()
         x = 1 
         x = x + 1
         pygame.draw.rect(display, 'red', [segment[0], segment[x], childSnake.cubeSize, childSnake.cubeSize])
+        getNewCords()
         childTeleportFood.amieaten = False
 
 
