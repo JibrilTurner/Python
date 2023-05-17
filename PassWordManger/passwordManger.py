@@ -48,9 +48,9 @@ class linkedList: # in this constructor, you will always wanna have the head nod
         curNode = self.head # creating a node to know where we are in the linked list
         while True: # so while true
             curNode = curNode.next # so we will keep moving forward
-            if curIdx == index: 
-                return curNode.data # so if the current index is equal to the index we are looking for, we will return the data
-            curIdx += 1 # so we will keep moving forward
+            if curIdx == index: # display node data like in display function
+                return curNode.username, curNode.password, curNode.identifier, curNode.encrpytionStandered
+                curIdx += 1 # so we will keep moving forward
 
     def length(self):
         count = 0
@@ -103,23 +103,26 @@ class linkedList: # in this constructor, you will always wanna have the head nod
                 self.append(line[0], line[1], line[2], line[3])
         print("File read complete.")
 
-    def encrypt(self, key): 
-        curNode = self.head.next
-        while curNode is not None:
-            curNode.password = curNode.password[::-1]
-            curNode.username = curNode.username[::-1]
-            curNode.identifier = curNode.identifier[::-1]
-            curNode.encrpytionStandered = curNode.encrpytionStandered[::-1]
-            curNode = curNode.next
+    #create a wrapper funtion for encrypt and decrypt
+    def encrypt(self,key,type)
+        
+        def revEncrypt(self, key): 
+            curNode = self.head.next
+            while curNode is not None:
+                curNode.password = curNode.password[::-1]
+                curNode.username = curNode.username[::-1]
+                curNode.identifier = curNode.identifier[::-1]
+                curNode.encrpytionStandered = curNode.encrpytionStandered[::-1]
+                curNode = curNode.next
 
-    def decrypt(self, key):
-        curNode = self.head.next
-        while curNode is not None:
-            curNode.password = curNode.password[::-1]
-            curNode.username = curNode.username[::-1]
-            curNode.identifier = curNode.identifier[::-1]
-            curNode.encrpytionStandered = curNode.encrpytionStandered[::-1]
-            curNode = curNode.next
+        def revDecrypt(self, key):
+            curNode = self.head.next
+            while curNode is not None:
+                curNode.password = curNode.password[::-1]
+                curNode.username = curNode.username[::-1]
+                curNode.identifier = curNode.identifier[::-1]
+                curNode.encrpytionStandered = curNode.encrpytionStandered[::-1]
+                curNode = curNode.next
 
     def xorEncrypt(self, key, index):
         if len(key) != 1:
@@ -140,7 +143,7 @@ class linkedList: # in this constructor, you will always wanna have the head nod
             curIdx += 1
 
 
-    def xorDecrypt(self, key, index):
+    def xorDecrypt(self, index):
         if len(key) != 1:
             raise ValueError("Key must be a single character.")
         
@@ -182,13 +185,18 @@ def counter():
 
 # Usage example:
 myList = linkedList()
-myList.append("JibrilTurner", " Use a single character as the key","Index 1" ,"XOR")
 
-key = "s"  # Use a single character as the key
-myList.display()  # Display the encrypted data
+myList.encrypt(key, 0, )
 
-myList.xorDecrypt(key, 0)
 
-myList.write_to_file("passwords.txt")
 
-#python3 passwordManger.
+myList.xorEncrypt(key, 3)
+
+myList.display()
+print(myList.get(2))
+# Decrypt and display the data
+
+
+# myList.write_to_file("passwords.txt")
+
+#python3 passwordManger.py,
